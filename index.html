@@ -50,6 +50,10 @@
   [data-reveal]{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
   [data-reveal].is-in{ opacity:1; transform:none; }
 
+  /* 흑백 → 마우스 오버 시 컬러 (원장 사진) */
+  .bd-photo-bw{ filter:grayscale(1) contrast(1.02); transition:filter .55s ease; }
+  .bd-photo-bw:hover{ filter:grayscale(0) contrast(1); }
+
   /* ── 반응형 ─────────────────────────────────────────── */
   @media (max-width:1024px){
     .bd-systems-grid{ grid-template-columns:repeat(2,1fr)!important; row-gap:48px!important; }
@@ -133,7 +137,7 @@
 <!-- ============ 1. HERO ============ -->
 <section style="position:relative; height:calc(100vh - 80px); min-height:620px; display:flex; align-items:center; overflow:hidden; background:#111;">
   <!-- 사진 교체: 아래 div → <img src="images/hero.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.02) brightness(.72);"> -->
-  <img src="images/hero-hand2.jpg" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.02) brightness(.72);">
+  <img src="images/hero-hand2.jpg" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:28% center; filter:grayscale(1) contrast(1.02) brightness(.72);">
   <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(10,10,10,.82) 0%, rgba(10,10,10,.5) 46%, rgba(10,10,10,.12) 100%);"></div>
   <div data-reveal style="position:relative; max-width:1200px; margin:0 auto; padding:0 40px; width:100%;">
     <p style="font-family:'Pretendard',sans-serif; font-size:14px; letter-spacing:0.24em; color:rgba(255,255,255,.62); margin:0 0 26px;">BARODREAM DENTAL · ANSAN</p>
@@ -289,14 +293,14 @@
     <div class="bd-doctors-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:48px;">
       <div>
         <!-- 사진 교체: filter:grayscale(1) contrast(1.02) 유지, border-radius:4px -->
-        <img src="images/dr.han.jpg" alt="한지상 대표원장" style="width:100%; height:440px; border-radius:4px; object-fit:cover; filter:grayscale(1) contrast(1.02);">
+        <img src="images/dr.han.jpg" alt="한지상 대표원장" class="bd-photo-bw" style="width:100%; height:440px; border-radius:4px; object-fit:cover;">
         <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:19px; color:#1A1A1A; margin:30px 0 0;">“30년을 환자로 살았습니다.”</p>
         <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:24px; letter-spacing:-0.02em; color:#1A1A1A; margin:20px 0 6px;">한지상 <span style="font-size:15px; color:#8A8A8A; font-weight:400;">공동 대표원장</span></h3>
         <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">통합치의학과 전문의 · 수면 임플란트, All-on-X 담당 · 평창 동계올림픽·패럴림픽 팀 닥터</p>
         <a href="#" style="display:inline-block; margin-top:22px; font-size:14px; color:#1A1A1A; text-decoration:none; border-bottom:1px solid #1A1A1A; padding-bottom:2px;">자세히 보기</a>
       </div>
       <div>
-        <img src="images/dr.kim.jpg" alt="김진희 대표원장" style="width:100%; height:440px; border-radius:4px; object-fit:cover; filter:grayscale(1) contrast(1.02);">
+        <img src="images/dr.kim.jpg" alt="김진희 대표원장" class="bd-photo-bw" style="width:100%; height:440px; border-radius:4px; object-fit:cover;">
         <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:19px; color:#1A1A1A; margin:30px 0 0;">“보이지 않는 정확함을 만듭니다.”</p>
         <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:24px; letter-spacing:-0.02em; color:#1A1A1A; margin:20px 0 6px;">김진희 <span style="font-size:15px; color:#8A8A8A; font-weight:400;">공동 대표원장</span></h3>
         <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">통합치의학과 전문의 · 보철, 심미 담당 · 서울대 졸업, 경희대 치의학전문대학원 석사</p>
@@ -377,7 +381,7 @@
       <div class="ph" style="width:100%; height:100%; min-height:360px; border-radius:6px;">지도 이미지 · 안산중앙역 인근</div>
       <div style="background:#fff; border:1px solid var(--line); border-radius:6px; padding:44px;">
         <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:22px; letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 8px;">바로드림치과 안산점</h3>
-        <p style="font-size:16px; line-height:1.7; color:#4A4A4A; margin:0 0 30px;">경기도 안산시 단원구 ○○로 ○○<br><span style="color:#8A8A8A; font-size:14px;">안산중앙역 도보 3분 · 주소 확정 예정</span></p>
+        <p style="font-size:16px; line-height:1.7; color:#4A4A4A; margin:0 0 30px;">경기 안산시 단원구 고잔로 108 대동조이월드 405호<br><span style="color:#8A8A8A; font-size:14px;">안산중앙역 도보 3분</span></p>
         <div style="height:1px; background:var(--line); margin:0 0 26px;"></div>
         <table style="width:100%; border-collapse:collapse; font-size:15px; color:#4A4A4A;">
           <tbody>
@@ -389,7 +393,7 @@
           </tbody>
         </table>
         <div style="display:flex; gap:10px; margin-top:30px;">
-          <a href="#" style="flex:1; text-align:center; padding:14px 0; background:#1A1A1A; color:#fff; font-size:14px; font-weight:500; text-decoration:none; border-radius:2px;">전화 상담</a>
+          <a href="tel:031-402-2282" style="flex:1; text-align:center; padding:14px 0; background:#1A1A1A; color:#fff; font-size:14px; font-weight:500; text-decoration:none; border-radius:2px;">전화 상담</a>
           <a href="#" style="flex:1; text-align:center; padding:14px 0; background:#FEE500; color:#3A1D1D; font-size:14px; font-weight:600; text-decoration:none; border-radius:2px;">카카오톡</a>
           <a href="#" style="flex:1; text-align:center; padding:14px 0; background:#03C75A; color:#fff; font-size:14px; font-weight:600; text-decoration:none; border-radius:2px;">네이버 예약</a>
         </div>
@@ -422,10 +426,10 @@
       </div>
       <div>
         <p style="font-size:13px; letter-spacing:0.1em; color:rgba(255,255,255,.4); margin:0 0 20px;">CONTACT</p>
-        <p style="font-size:14px; line-height:1.9; color:rgba(255,255,255,.8); margin:0;">경기도 안산시 단원구 ○○로 ○○<br>안산중앙역 도보 3분<br>Tel. 000-0000-0000</p>
+        <p style="font-size:14px; line-height:1.9; color:rgba(255,255,255,.8); margin:0;">경기 안산시 단원구 고잔로 108<br>대동조이월드 405호<br>Tel. <a href="tel:031-402-2282" style="color:inherit; text-decoration:none;">031-402-2282</a></p>
       </div>
     </div>
-    <p style="font-size:12px; line-height:1.8; color:rgba(255,255,255,.4); margin:28px 0 0;">바로드림치과 안산점 · 대표원장 한지상, 김진희 · 사업자등록번호 000-00-00000<br>© 2026 BARODREAM DENTAL ANSAN. All rights reserved.</p>
+    <p style="font-size:12px; line-height:1.8; color:rgba(255,255,255,.4); margin:28px 0 0;">바로드림치과의원 · 대표 김진희 · 사업자등록번호 361-95-01399<br>경기 안산시 단원구 고잔로 108 대동조이월드 405호 · Tel. 031-402-2282<br>© 2026 바로드림치과의원. All rights reserved.</p>
   </div>
 </footer>
 
@@ -437,7 +441,7 @@
   <a href="#" title="네이버 예약" style="width:56px; height:56px; border-radius:50%; background:#03C75A; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(0,0,0,.18); text-decoration:none;">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M15.3 12.6 8.4 3H3v18h5.7v-9.6L15.6 21H21V3h-5.7z"/></svg>
   </a>
-  <a href="#" title="전화 상담" style="width:56px; height:56px; border-radius:50%; background:#1A1A1A; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(0,0,0,.18); text-decoration:none;">
+  <a href="tel:031-402-2282" title="전화 상담" style="width:56px; height:56px; border-radius:50%; background:#1A1A1A; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 20px rgba(0,0,0,.18); text-decoration:none;">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
   </a>
 </div>
