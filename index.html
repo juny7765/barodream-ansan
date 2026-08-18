@@ -99,42 +99,188 @@
     <span style="font-family:'Pretendard',sans-serif; font-size:12px; letter-spacing:0.18em; color:#8A8A8A; padding-bottom:4px;">ANSAN</span>
     <span style="font-family:'Noto Serif KR',serif; font-size:18px; color:var(--accent); padding-bottom:2px;">作</span>
   </a>
-  <nav class="bd-nav" style="display:flex; align-items:center; gap:24px;">
+  <nav class="bd-nav" style="display:flex; align-items:center; gap:34px;">
     <div class="bd-nav-item">
-      <a href="implant-sedation.html" class="bd-nav-top">임플란트</a>
+      <a href="implant-senior.html" class="bd-nav-top">임플란트</a>
       <div class="bd-dropdown">
-        <a href="implant-sedation.html">수면 임플란트</a>
-        <a href="implant-all-on-x.html">전체 임플란트 All-on-X</a>
+        <a href="implant-senior.html">시니올</a>
+        <a href="implant-all-on-x.html">풀아치 임플란트(All-on-X)</a>
         <a href="implant-navigation.html">네비게이션 임플란트</a>
-        <a href="implant-all-on-denture.html">디지털 올온덴쳐</a>
+        <a href="implant-immediate.html">즉시로딩</a>
       </div>
     </div>
     <div class="bd-nav-item">
       <a href="sedation.html" class="bd-nav-top">의식하진정법</a>
       <div class="bd-dropdown">
-        <a href="sedation.html">의식하진정법 안내</a>
-        <a href="caries.html">통증 최소화 충치치료</a>
-        <a href="endo.html">신경치료</a>
-        <a href="perio.html">흔들리는 잇몸치료</a>
+        <a href="implant-sedation.html">의식하진정법 임플란트</a>
+        <a href="caries.html">충치치료 및 신경치료</a>
+        <a href="perio.html">잇몸치료</a>
         <a href="prosthesis.html">디지털 보철치료</a>
       </div>
     </div>
-    <a href="#" class="bd-nav-top">자연치아살리기</a>
-    <a href="#" class="bd-nav-top">심미치료</a>
+    <div class="bd-nav-item">
+      <a href="natural-tooth.html" class="bd-nav-top">자연치아살리기</a>
+      <div class="bd-dropdown">
+        <a href="natural-caries.html">충치치료</a>
+        <a href="endo.html">신경치료</a>
+        <a href="natural-perio.html">잇몸치료</a>
+        <a href="natural-prosthesis.html">보철치료</a>
+      </div>
+    </div>
+    <div class="bd-nav-item">
+      <a href="laminate.html" class="bd-nav-top">심미치료</a>
+      <div class="bd-dropdown">
+        <a href="laminate.html">라미네이트</a>
+        <a href="resin-front.html">앞니 레진</a>
+      </div>
+    </div>
     <div class="bd-nav-item">
       <a href="ortho.html" class="bd-nav-top">치아교정</a>
       <div class="bd-dropdown">
-        <a href="ortho.html">치아교정 안내</a>
-        <a href="ortho-bracket.html">브라켓 치아교정</a>
+        <a href="ortho-adult.html">성인교정</a>
+        <a href="ortho-child.html">성장기 소아교정</a>
+        <a href="ortho-clear.html">투명교정</a>
       </div>
     </div>
-    <a href="#care" class="bd-nav-top">턱관절</a>
-    <a href="#story" class="bd-nav-top">바로드림 이야기</a>
+    <a href="tmj.html" class="bd-nav-top">턱관절</a>
+    <div class="bd-nav-item">
+      <a href="#story" class="bd-nav-top">바로드림 이야기</a>
+      <div class="bd-dropdown">
+        <a href="column.html">칼럼</a>
+        <a href="cases.html">치료 사례</a>
+      </div>
+    </div>
     <a href="#location" class="bd-nav-top">오시는 길</a>
   </nav>
 </header>
 
 <span id="top"></span>
+<!-- ============ QUICK GUIDE (2단계 팝업) ============ -->
+<div id="bdQuizOverlay" style="position:fixed; inset:0; z-index:500; background:rgba(10,10,10,.72); display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; visibility:hidden; transition:opacity .3s ease;">
+  <div style="position:relative; width:100%; max-width:640px; max-height:88vh; overflow-y:auto; background:#fff; border-radius:8px; padding:44px 36px 36px;">
+    <button id="bdQuizClose" aria-label="닫기" style="position:absolute; top:18px; right:18px; width:34px; height:34px; border:none; background:var(--bg2); border-radius:50%; font-size:18px; color:#4A4A4A; cursor:pointer; line-height:1; z-index:2;">&times;</button>
+
+    <!-- STEP 1 -->
+    <div id="bdQuizStep1">
+      <div style="text-align:center; margin-bottom:32px;">
+        <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:14px; color:var(--accent); margin:0 0 12px;">Quick Guide</p>
+        <h2 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(20px,3vw,26px); letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 8px;">무엇이 궁금하세요?</h2>
+        <p style="font-size:13px; color:#8A8A8A; margin:0;">골라주시면 알맞은 페이지로 바로 안내해 드립니다</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:9px;">
+        <button data-branch="implant" class="bd-qg-btn bd-qg-branch" style="display:flex; align-items:center; gap:10px; padding:15px 16px; background:var(--bg2); border:1px solid var(--line); border-radius:6px; cursor:pointer; text-align:left; transition:border-color .2s ease, background .2s ease;"><span style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:var(--accent); flex-shrink:0;">01</span><span style="font-size:14px; color:#1A1A1A; letter-spacing:-0.01em;">임플란트가 궁금해요</span></button>
+        <button data-branch="sedation" class="bd-qg-btn bd-qg-branch" style="display:flex; align-items:center; gap:10px; padding:15px 16px; background:var(--bg2); border:1px solid var(--line); border-radius:6px; cursor:pointer; text-align:left; transition:border-color .2s ease, background .2s ease;"><span style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:var(--accent); flex-shrink:0;">02</span><span style="font-size:14px; color:#1A1A1A; letter-spacing:-0.01em;">의식하진정법이 궁금해요</span></button>
+        <button data-branch="natural" class="bd-qg-btn bd-qg-branch" style="display:flex; align-items:center; gap:10px; padding:15px 16px; background:var(--bg2); border:1px solid var(--line); border-radius:6px; cursor:pointer; text-align:left; transition:border-color .2s ease, background .2s ease;"><span style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:var(--accent); flex-shrink:0;">03</span><span style="font-size:14px; color:#1A1A1A; letter-spacing:-0.01em;">일반적인 치료들이 궁금해요</span></button>
+        <button data-branch="aesthetic" class="bd-qg-btn bd-qg-branch" style="display:flex; align-items:center; gap:10px; padding:15px 16px; background:var(--bg2); border:1px solid var(--line); border-radius:6px; cursor:pointer; text-align:left; transition:border-color .2s ease, background .2s ease;"><span style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:var(--accent); flex-shrink:0;">04</span><span style="font-size:14px; color:#1A1A1A; letter-spacing:-0.01em;">심미치료가 궁금해요</span></button>
+        <button data-branch="ortho" class="bd-qg-btn bd-qg-branch" style="display:flex; align-items:center; gap:10px; padding:15px 16px; background:var(--bg2); border:1px solid var(--line); border-radius:6px; cursor:pointer; text-align:left; transition:border-color .2s ease, background .2s ease;"><span style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:var(--accent); flex-shrink:0;">05</span><span style="font-size:14px; color:#1A1A1A; letter-spacing:-0.01em;">치아교정이 궁금해요</span></button>
+        <a href="tmj.html" class="bd-qg-btn" style="display:flex; align-items:center; gap:10px; padding:15px 16px; background:var(--bg2); border:1px solid var(--line); border-radius:6px; text-decoration:none; transition:border-color .2s ease, background .2s ease;"><span style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:var(--accent); flex-shrink:0;">06</span><span style="font-size:14px; color:#1A1A1A; letter-spacing:-0.01em;">턱관절이 궁금해요</span></a>
+        <a href="column.html" class="bd-qg-btn" style="display:flex; align-items:center; gap:10px; padding:15px 16px; background:var(--bg2); border:1px solid var(--line); border-radius:6px; text-decoration:none; transition:border-color .2s ease, background .2s ease;"><span style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:var(--accent); flex-shrink:0;">07</span><span style="font-size:14px; color:#1A1A1A; letter-spacing:-0.01em;">칼럼이 궁금해요</span></a>
+        <a href="cases.html" class="bd-qg-btn" style="display:flex; align-items:center; gap:10px; padding:15px 16px; background:var(--bg2); border:1px solid var(--line); border-radius:6px; text-decoration:none; transition:border-color .2s ease, background .2s ease;"><span style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:var(--accent); flex-shrink:0;">08</span><span style="font-size:14px; color:#1A1A1A; letter-spacing:-0.01em;">실제 치료사례가 궁금해요</span></a>
+        <a href="#doctors" id="bdQuizDoctors" class="bd-qg-btn" style="display:flex; align-items:center; gap:10px; padding:15px 16px; background:var(--bg2); border:1px solid var(--line); border-radius:6px; text-decoration:none; transition:border-color .2s ease, background .2s ease;"><span style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:var(--accent); flex-shrink:0;">09</span><span style="font-size:14px; color:#1A1A1A; letter-spacing:-0.01em;">원장님이 궁금해요</span></a>
+        <button id="bdQuizAll" class="bd-qg-btn" style="display:flex; align-items:center; gap:10px; padding:15px 16px; background:#1A1A1A; border:1px solid #1A1A1A; border-radius:6px; cursor:pointer; transition:opacity .2s ease;"><span style="font-family:'Playfair Display',serif; font-style:italic; font-size:13px; color:#fff; flex-shrink:0;">10</span><span style="font-size:14px; color:#fff; letter-spacing:-0.01em;">그냥 전체적으로 다 볼래요</span></button>
+      </div>
+    </div>
+
+    <!-- STEP 2 (JS로 채워짐) -->
+    <div id="bdQuizStep2" style="display:none;">
+      <button id="bdQuizBack" style="display:flex; align-items:center; gap:6px; background:none; border:none; cursor:pointer; padding:0; margin-bottom:22px; font-size:13px; color:#8A8A8A;">← 뒤로</button>
+      <div style="text-align:center; margin-bottom:28px;">
+        <h2 id="bdQuizStep2Title" style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(19px,2.8vw,24px); letter-spacing:-0.02em; color:#1A1A1A; margin:0;"></h2>
+      </div>
+      <div id="bdQuizStep2List" style="display:grid; grid-template-columns:repeat(2,1fr); gap:9px;"></div>
+    </div>
+
+  </div>
+</div>
+<style>
+  .bd-qg-btn:hover{ border-color:var(--accent) !important; background:#fff !important; }
+</style>
+<script>
+  (function(){
+    var BRANCHES = {
+      implant: {
+        title: "임플란트, 어떤 게 궁금하세요?",
+        items: [
+          { label: "임플란트에 대해 알아서 다 보겠다", href: "implant-senior.html" },
+          { label: "전체적으로 이가 안 좋아요 (60대 이상)", href: "implant-senior.html" },
+          { label: "전체적으로 이가 안 좋아요 (60대 이하)", href: "implant-all-on-x.html" },
+          { label: "네비게이션 임플란트가 궁금해요", href: "implant-navigation.html" },
+          { label: "즉시로딩이 궁금해요", href: "implant-immediate.html" }
+        ]
+      },
+      sedation: {
+        title: "의식하진정법, 어떤 게 궁금하세요?",
+        items: [
+          { label: "의식하진정법 임플란트가 궁금해요", href: "implant-sedation.html" },
+          { label: "충치·신경치료가 궁금해요", href: "caries.html" },
+          { label: "잇몸치료가 궁금해요", href: "perio.html" },
+          { label: "디지털 보철치료가 궁금해요", href: "prosthesis.html" }
+        ]
+      },
+      natural: {
+        title: "일반적인 치료, 어떤 게 궁금하세요?",
+        items: [
+          { label: "충치치료가 궁금해요", href: "natural-caries.html" },
+          { label: "신경치료가 궁금해요", href: "endo.html" },
+          { label: "잇몸치료가 궁금해요", href: "natural-perio.html" },
+          { label: "보철치료가 궁금해요", href: "natural-prosthesis.html" }
+        ]
+      },
+      aesthetic: {
+        title: "심미치료, 어떤 게 궁금하세요?",
+        items: [
+          { label: "라미네이트가 궁금해요", href: "laminate.html" },
+          { label: "앞니 레진이 궁금해요", href: "resin-front.html" }
+        ]
+      },
+      ortho: {
+        title: "치아교정, 어떤 게 궁금하세요?",
+        items: [
+          { label: "성인교정이 궁금해요", href: "ortho-adult.html" },
+          { label: "성장기 소아교정이 궁금해요", href: "ortho-child.html" },
+          { label: "투명교정이 궁금해요", href: "ortho-clear.html" }
+        ]
+      }
+    };
+
+    var overlay = document.getElementById('bdQuizOverlay');
+    var step1 = document.getElementById('bdQuizStep1');
+    var step2 = document.getElementById('bdQuizStep2');
+    var step2Title = document.getElementById('bdQuizStep2Title');
+    var step2List = document.getElementById('bdQuizStep2List');
+
+    function openQuiz(){ overlay.style.visibility='visible'; overlay.style.opacity='1'; document.body.style.overflow='hidden'; }
+    function closeQuiz(){ overlay.style.opacity='0'; document.body.style.overflow=''; setTimeout(function(){ overlay.style.visibility='hidden'; showStep1(); }, 300); }
+    function showStep1(){ step2.style.display='none'; step1.style.display='block'; }
+    function showBranch(key){
+      var data = BRANCHES[key];
+      if(!data) return;
+      step2Title.textContent = data.title;
+      step2List.innerHTML = '';
+      data.items.forEach(function(item){
+        var a = document.createElement('a');
+        a.href = item.href;
+        a.className = 'bd-qg-btn';
+        a.style.cssText = 'display:flex; align-items:center; padding:15px 16px; background:var(--bg2); border:1px solid var(--line); border-radius:6px; text-decoration:none; font-size:14px; color:#1A1A1A; letter-spacing:-0.01em; transition:border-color .2s ease, background .2s ease;';
+        a.textContent = item.label;
+        step2List.appendChild(a);
+      });
+      step1.style.display='none';
+      step2.style.display='block';
+    }
+
+    setTimeout(openQuiz, 500);
+    document.getElementById('bdQuizClose').addEventListener('click', closeQuiz);
+    document.getElementById('bdQuizAll').addEventListener('click', closeQuiz);
+    document.getElementById('bdQuizDoctors').addEventListener('click', closeQuiz);
+    document.getElementById('bdQuizBack').addEventListener('click', showStep1);
+    overlay.addEventListener('click', function(e){ if(e.target === overlay) closeQuiz(); });
+
+    Array.prototype.forEach.call(document.querySelectorAll('.bd-qg-branch'), function(btn){
+      btn.addEventListener('click', function(){ showBranch(btn.getAttribute('data-branch')); });
+    });
+  })();
+</script>
 
 <!-- ============ 1. HERO ============ -->
 <section style="position:relative; height:calc(100vh - 80px); min-height:620px; display:flex; align-items:center; overflow:hidden; background:#111;">
@@ -158,12 +304,57 @@
 </section>
 
 <!-- ============ 2. BRAND STORY ============ -->
-<section id="story" data-reveal style="padding:130px 24px 120px; text-align:center; background:#fff;">
+<section id="story" data-reveal style="padding:130px 24px 100px; text-align:center; background:#fff;">
   <div style="max-width:800px; margin:0 auto;">
     <div style="font-family:'Noto Serif KR',serif; font-weight:400; font-size:clamp(120px,20vw,240px); line-height:1; color:var(--accent); opacity:.9;">作</div>
     <p style="font-family:'Pretendard',sans-serif; font-size:13px; letter-spacing:0.24em; color:#8A8A8A; margin:22px 0 34px;">환자였던 의사가 만든, 하나의 작품 같은 치과</p>
     <h2 style="font-family:'Noto Serif KR',serif; font-weight:400; font-size:clamp(22px,3.4vw,30px); line-height:1.66; letter-spacing:-0.02em; color:#1A1A1A; margin:0; text-wrap:balance;">환자였던 30년의 시간이,<br>이 치과를 만들었습니다.<br><span style="color:#8A8A8A;">진료실 의자에 앉는 두려움을 압니다.<br>그래서, 다른 방식으로 시작합니다.</span></h2>
-    <a href="#doctors" style="display:inline-block; margin-top:44px; font-size:15px; color:#1A1A1A; text-decoration:none; border-bottom:1px solid #1A1A1A; padding-bottom:3px; letter-spacing:-0.01em;">바로드림 이야기 보기</a>
+    <a href="#doctors" style="display:inline-block; margin-top:44px; font-size:15px; color:#1A1A1A; text-decoration:none; border-bottom:1px solid #1A1A1A; padding-bottom:3px; letter-spacing:-0.01em;">원장님 이야기 보기</a>
+  </div>
+</section>
+
+<!-- 칼럼 / 치료 사례 미리보기 -->
+<section data-reveal style="padding:0 24px 130px; background:#fff;">
+  <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:32px;">
+
+    <div>
+      <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:24px;">
+        <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:22px; letter-spacing:-0.02em; color:#1A1A1A; margin:0;">칼럼</h3>
+        <a href="column.html" style="font-size:13px; color:var(--accent); text-decoration:none;">더 보기 →</a>
+      </div>
+      <a href="column.html" style="display:block; text-decoration:none; border:1px solid var(--line); border-radius:6px; overflow:hidden; margin-bottom:14px;">
+        <div style="display:flex;">
+          <div class="ph" style="width:120px; height:90px; flex-shrink:0;">예시</div>
+          <div style="padding:16px 18px;"><p style="font-size:12px; color:var(--accent); margin:0 0 6px;">임플란트</p><p style="font-size:14px; line-height:1.5; color:#1A1A1A; margin:0;">[예시] 임플란트, 나이가 많아도 할 수 있을까요</p></div>
+        </div>
+      </a>
+      <a href="column.html" style="display:block; text-decoration:none; border:1px solid var(--line); border-radius:6px; overflow:hidden;">
+        <div style="display:flex;">
+          <div class="ph" style="width:120px; height:90px; flex-shrink:0;">예시</div>
+          <div style="padding:16px 18px;"><p style="font-size:12px; color:var(--accent); margin:0 0 6px;">의식하진정법</p><p style="font-size:14px; line-height:1.5; color:#1A1A1A; margin:0;">[예시] 의식하진정법과 수면치료, 무엇이 다를까요</p></div>
+        </div>
+      </a>
+    </div>
+
+    <div>
+      <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:24px;">
+        <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:22px; letter-spacing:-0.02em; color:#1A1A1A; margin:0;">치료 사례</h3>
+        <a href="cases.html" style="font-size:13px; color:var(--accent); text-decoration:none;">더 보기 →</a>
+      </div>
+      <a href="cases.html" style="display:block; text-decoration:none; border:1px solid var(--line); border-radius:6px; overflow:hidden; margin-bottom:14px;">
+        <div style="display:flex;">
+          <div class="ph" style="width:120px; height:90px; flex-shrink:0;">예시</div>
+          <div style="padding:16px 18px;"><p style="font-size:12px; color:var(--accent); margin:0 0 6px;">풀아치 임플란트</p><p style="font-size:14px; line-height:1.5; color:#1A1A1A; margin:0;">[예시] 전체 무치악, 임플란트 4개로 회복한 사례</p></div>
+        </div>
+      </a>
+      <a href="cases.html" style="display:block; text-decoration:none; border:1px solid var(--line); border-radius:6px; overflow:hidden;">
+        <div style="display:flex;">
+          <div class="ph" style="width:120px; height:90px; flex-shrink:0;">예시</div>
+          <div style="padding:16px 18px;"><p style="font-size:12px; color:var(--accent); margin:0 0 6px;">라미네이트</p><p style="font-size:14px; line-height:1.5; color:#1A1A1A; margin:0;">[예시] 앞니 변색, 최소삭제 라미네이트로 개선한 사례</p></div>
+        </div>
+      </a>
+    </div>
+
   </div>
 </section>
 
@@ -178,11 +369,11 @@
     <div class="bd-concern-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
       <a href="implant-sedation.html" data-card style="display:flex; flex-direction:column; justify-content:space-between; min-height:200px; padding:38px; background:#fff; border:1px solid var(--line); border-radius:4px; text-decoration:none; transition:transform .3s ease, box-shadow .3s ease;">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;"><h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:21px; line-height:1.5; letter-spacing:-0.02em; color:#1A1A1A; margin:0;">임플란트 수술이<br>너무 무서워요</h3><span style="font-size:20px; color:var(--accent); flex-shrink:0;">→</span></div>
-        <p style="font-size:15px; line-height:1.6; color:#4A4A4A; margin:24px 0 0;">자는 사이에 편안하게 진료합니다</p>
+        <p style="font-size:15px; line-height:1.6; color:#4A4A4A; margin:24px 0 0;">진정 상태에서 진료 부담을 줄입니다</p>
       </a>
       <a href="implant-all-on-x.html" data-card style="display:flex; flex-direction:column; justify-content:space-between; min-height:200px; padding:38px; background:#fff; border:1px solid var(--line); border-radius:4px; text-decoration:none; transition:transform .3s ease, box-shadow .3s ease;">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;"><h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:21px; line-height:1.5; letter-spacing:-0.02em; color:#1A1A1A; margin:0;">이가 없어서<br>씹기가 너무 힘들어요</h3><span style="font-size:20px; color:var(--accent); flex-shrink:0;">→</span></div>
-        <p style="font-size:15px; line-height:1.6; color:#4A4A4A; margin:24px 0 0;">하루 만에 새 치아로 편안하게 식사하실 수 있습니다</p>
+        <p style="font-size:15px; line-height:1.6; color:#4A4A4A; margin:24px 0 0;">조건이 맞으면 하루 만에 새 치아로 식사를 시작하실 수 있습니다</p>
       </a>
       <a href="implant-navigation.html" data-card style="display:flex; flex-direction:column; justify-content:space-between; min-height:200px; padding:38px; background:#fff; border:1px solid var(--line); border-radius:4px; text-decoration:none; transition:transform .3s ease, box-shadow .3s ease;">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;"><h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:21px; line-height:1.5; letter-spacing:-0.02em; color:#1A1A1A; margin:0;">오래 걸린다던데</h3><span style="font-size:20px; color:var(--accent); flex-shrink:0;">→</span></div>
@@ -190,11 +381,11 @@
       </a>
       <a href="sedation.html" data-card style="display:flex; flex-direction:column; justify-content:space-between; min-height:200px; padding:38px; background:#fff; border:1px solid var(--line); border-radius:4px; text-decoration:none; transition:transform .3s ease, box-shadow .3s ease;">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;"><h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:21px; line-height:1.5; letter-spacing:-0.02em; color:#1A1A1A; margin:0;">이가 아픈데 치과 가기가<br>너무 무서워요</h3><span style="font-size:20px; color:var(--accent); flex-shrink:0;">→</span></div>
-        <p style="font-size:15px; line-height:1.6; color:#4A4A4A; margin:24px 0 0;">통증 없이 편안하게 치료해 드립니다</p>
+        <p style="font-size:15px; line-height:1.6; color:#4A4A4A; margin:24px 0 0;">통증에 대한 부담을 줄여 치료합니다</p>
       </a>
-      <a href="implant-all-on-denture.html" data-card style="display:flex; flex-direction:column; justify-content:space-between; min-height:200px; padding:38px; background:#fff; border:1px solid var(--line); border-radius:4px; text-decoration:none; transition:transform .3s ease, box-shadow .3s ease;">
-        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;"><h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:21px; line-height:1.5; letter-spacing:-0.02em; color:#1A1A1A; margin:0;">틀니는 불편하고<br>임플란트는 부담되고</h3><span style="font-size:20px; color:var(--accent); flex-shrink:0;">→</span></div>
-        <p style="font-size:15px; line-height:1.6; color:#4A4A4A; margin:24px 0 0;">디지털 올온덴쳐로 두 부담을 모두 줄여드립니다</p>
+      <a href="implant-all-on-x.html" data-card style="display:flex; flex-direction:column; justify-content:space-between; min-height:200px; padding:38px; background:#fff; border:1px solid var(--line); border-radius:4px; text-decoration:none; transition:transform .3s ease, box-shadow .3s ease;">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;"><h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:21px; line-height:1.5; letter-spacing:-0.02em; color:#1A1A1A; margin:0;">틀니가 헐겁고<br>불편해요</h3><span style="font-size:20px; color:var(--accent); flex-shrink:0;">→</span></div>
+        <p style="font-size:15px; line-height:1.6; color:#4A4A4A; margin:24px 0 0;">풀아치 임플란트로 잇몸뼈에 고정해 안정감을 되찾아 드립니다</p>
       </a>
       <a href="ortho.html" data-card style="display:flex; flex-direction:column; justify-content:space-between; min-height:200px; padding:38px; background:#fff; border:1px solid var(--line); border-radius:4px; text-decoration:none; transition:transform .3s ease, box-shadow .3s ease;">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px;"><h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:21px; line-height:1.5; letter-spacing:-0.02em; color:#1A1A1A; margin:0;">치아교정, 더 이상<br>미루고 싶지 않아요</h3><span style="font-size:20px; color:var(--accent); flex-shrink:0;">→</span></div>
@@ -215,8 +406,8 @@
       <div style="padding:0 34px; border-right:1px solid var(--line); text-align:left;">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
         <p style="font-family:'Pretendard',sans-serif; font-size:12px; letter-spacing:0.14em; color:#8A8A8A; margin:22px 0 8px;">SYSTEM 01</p>
-        <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:22px; letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 12px;">가수면 마취</h3>
-        <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">잠깐 잔 것 같은데, 기억 없이 끝납니다.</p>
+        <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:22px; letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 12px;">의식하진정 마취</h3>
+        <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">약물로 진정 상태를 유지해, 기억 부담을 줄여드리는 방식입니다.</p>
       </div>
       <div style="padding:0 34px; border-right:1px solid var(--line); text-align:left;">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.4"/><path d="M12 1.5V5M12 19v3.5M1.5 12H5M19 12h3.5"/></svg>
@@ -228,13 +419,13 @@
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>
         <p style="font-family:'Pretendard',sans-serif; font-size:12px; letter-spacing:0.14em; color:#8A8A8A; margin:22px 0 8px;">SYSTEM 03</p>
         <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:22px; letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 12px;">즉시 보철</h3>
-        <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">발치 당일, 새 치아로 돌아가십니다.</p>
+        <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">조건이 맞으면, 발치 당일 새 치아로 돌아가십니다.</p>
       </div>
       <div style="padding:0 34px; text-align:left;">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7Z"/><path d="M12 12 20.5 7M12 12v9.5M12 12 3.5 7"/></svg>
         <p style="font-family:'Pretendard',sans-serif; font-size:12px; letter-spacing:0.14em; color:#8A8A8A; margin:22px 0 8px;">SYSTEM 04</p>
         <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:22px; letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 12px;">원내 디지털 기공소</h3>
-        <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">외주 없이, 원내에서 직접 만듭니다.</p>
+        <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">원내 디지털 기공소에서 직접 제작·조정합니다.</p>
       </div>
     </div>
   </div>
@@ -254,7 +445,7 @@
         <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.6));"></div>
         <div style="position:absolute; left:40px; bottom:36px; right:40px;">
           <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:28px; letter-spacing:-0.02em; color:#fff; margin:0 0 10px;">임플란트</h3>
-          <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,.72); margin:0;">의식하진정법 임플란트 · 네비게이션 · 전체 임플란트 All-on-X · 디지털 올온덴쳐</p>
+          <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,.72); margin:0;">시니올 · 풀아치 임플란트 · 네비게이션 임플란트 · 즉시로딩</p>
         </div>
       </a>
       <a href="sedation.html" style="position:relative; display:block; height:360px; border-radius:4px; overflow:hidden; text-decoration:none; background:#111;">
@@ -270,15 +461,31 @@
         <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.6));"></div>
         <div style="position:absolute; left:40px; bottom:36px; right:40px;">
           <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:28px; letter-spacing:-0.02em; color:#fff; margin:0 0 10px;">치아교정</h3>
-          <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,.72); margin:0;">브라켓 치아교정 · 부분교정 · 임플란트+교정 · 성장기 치아교정</p>
+          <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,.72); margin:0;">성인교정 · 성장기 소아교정 · 투명교정</p>
         </div>
       </a>
-      <a href="#" style="position:relative; display:block; height:360px; border-radius:4px; overflow:hidden; text-decoration:none; background:#111;">
+      <a href="natural-tooth.html" style="position:relative; display:block; height:360px; border-radius:4px; overflow:hidden; text-decoration:none; background:#111;">
+        <div class="ph" style="position:absolute; inset:0;">자연치아살리기 대표 이미지</div>
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.6));"></div>
+        <div style="position:absolute; left:40px; bottom:36px; right:40px;">
+          <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:28px; letter-spacing:-0.02em; color:#fff; margin:0 0 10px;">자연치아살리기</h3>
+          <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,.72); margin:0;">충치치료 · 신경치료 · 잇몸치료 · 보철치료</p>
+        </div>
+      </a>
+      <a href="laminate.html" style="position:relative; display:block; height:360px; border-radius:4px; overflow:hidden; text-decoration:none; background:#111;">
+        <div class="ph" style="position:absolute; inset:0;">심미치료 대표 이미지</div>
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.6));"></div>
+        <div style="position:absolute; left:40px; bottom:36px; right:40px;">
+          <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:28px; letter-spacing:-0.02em; color:#fff; margin:0 0 10px;">심미치료</h3>
+          <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,.72); margin:0;">라미네이트 · 앞니 레진</p>
+        </div>
+      </a>
+      <a href="tmj.html" style="position:relative; display:block; height:360px; border-radius:4px; overflow:hidden; text-decoration:none; background:#111;">
         <div class="ph" style="position:absolute; inset:0;">턱관절 대표 이미지</div>
         <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.1), rgba(0,0,0,.6));"></div>
         <div style="position:absolute; left:40px; bottom:36px; right:40px;">
           <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:28px; letter-spacing:-0.02em; color:#fff; margin:0 0 10px;">턱관절</h3>
-          <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,.72); margin:0;">턱관절 치료</p>
+          <p style="font-size:14px; line-height:1.6; color:rgba(255,255,255,.72); margin:0;">물리치료 · 스플린트치료 · 악관절 고착해소술</p>
         </div>
       </a>
     </div>
@@ -297,9 +504,8 @@
         <!-- 사진 교체: filter:grayscale(1) contrast(1.02) 유지, border-radius:4px -->
         <img src="images/dr.han.jpg" alt="한지상 대표원장" class="bd-photo-bw" style="width:100%; height:440px; border-radius:4px; object-fit:cover;">
         <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:19px; color:#1A1A1A; margin:30px 0 0;">“30년을 환자로 살았습니다.”</p>
-        <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:12px 0 0;">환자의 불편한 부분을 누구보다 잘 알고 있습니다.</p>
         <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:24px; letter-spacing:-0.02em; color:#1A1A1A; margin:20px 0 6px;">한지상 <span style="font-size:15px; color:#8A8A8A; font-weight:400;">공동 대표원장</span></h3>
-        <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">통합치의학과 전문의 · 수면 임플란트, All-on-X 담당 · 평창 동계올림픽·패럴림픽 팀 닥터</p>
+        <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">통합치의학과 전문의 · 의식하진정법 임플란트, All-on-X 담당 · 평창 동계올림픽·패럴림픽 팀 닥터</p>
         <a href="#" style="display:inline-block; margin-top:22px; font-size:14px; color:#1A1A1A; text-decoration:none; border-bottom:1px solid #1A1A1A; padding-bottom:2px;">자세히 보기</a>
       </div>
       <div>
@@ -320,8 +526,8 @@
     <div class="ph" style="width:100%; height:100%; min-height:420px;">원내 디지털 기공소 · 기공사 손 클로즈업 흑백</div>
     <div class="bd-lab-text" style="display:flex; flex-direction:column; justify-content:center; padding:90px 64px;">
       <div style="font-family:'Noto Serif KR',serif; font-size:72px; line-height:1; color:var(--accent); margin-bottom:26px;">作</div>
-      <h2 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(24px,3.4vw,36px); line-height:1.4; letter-spacing:-0.02em; color:#fff; margin:0;">외주가 아닙니다.<br>원내에서 만듭니다.</h2>
-      <p style="font-size:16px; line-height:1.8; color:rgba(255,255,255,.66); margin:28px 0 0; max-width:420px;">보철물은 병원 밖으로 나가지 않습니다. 원내 디지털 기공소에서 원장의 손끝과 기공사의 손끝이 한 공간에서 맞춰집니다. 그 거리를 줄인 만큼, 정확함이 만들어집니다.</p>
+      <h2 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(24px,3.4vw,36px); line-height:1.4; letter-spacing:-0.02em; color:#fff; margin:0;">원내 기공소에서,<br>더 가깝게 만듭니다.</h2>
+      <p style="font-size:16px; line-height:1.8; color:rgba(255,255,255,.66); margin:28px 0 0; max-width:420px;">필요한 보철물은 원내 디지털 기공소에서 직접 제작·조정합니다. 원장의 손끝과 기공사의 손끝이 한 공간에서 맞춰지는 만큼, 조정도 더 빠르고 정확합니다.</p>
       <a href="#" style="display:inline-block; margin-top:34px; font-size:15px; color:#fff; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.6); padding-bottom:3px; width:fit-content;">원내 디지털 기공소 보기</a>
     </div>
   </div>
@@ -340,7 +546,7 @@
       <span style="font-family:'Playfair Display',serif; font-size:44px; color:var(--accent); line-height:.6;">“</span>
       <p style="font-family:'Noto Serif KR',serif; font-weight:400; font-style:normal; font-size:19px; line-height:1.7; letter-spacing:-0.01em; color:#1A1A1A; margin:14px 0 26px;">30년 만에 치과 의자에 앉았습니다. 무섭다고만 생각했는데, 자고 일어나니 끝나 있더군요.</p>
       <p style="font-size:14px; color:#4A4A4A; margin:0;">40대 K님</p>
-      <span style="display:inline-block; margin-top:10px; font-size:12px; color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:4px 12px;">수면 임플란트</span>
+      <span style="display:inline-block; margin-top:10px; font-size:12px; color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:4px 12px;">의식하진정법 임플란트</span>
     </div>
     <div style="scroll-snap-align:start; flex:0 0 380px; padding:44px 40px; background:var(--bg2); border-radius:6px;">
       <span style="font-family:'Playfair Display',serif; font-size:44px; color:var(--accent); line-height:.6;">“</span>
@@ -358,7 +564,7 @@
       <span style="font-family:'Playfair Display',serif; font-size:44px; color:var(--accent); line-height:.6;">“</span>
       <p style="font-family:'Noto Serif KR',serif; font-weight:400; font-size:19px; line-height:1.7; letter-spacing:-0.01em; color:#1A1A1A; margin:14px 0 26px;">틀니를 뺐다 끼우던 밤이 없어졌습니다. 아침에 눈뜨는 게 편해졌어요.</p>
       <p style="font-size:14px; color:#4A4A4A; margin:0;">70대 J님</p>
-      <span style="display:inline-block; margin-top:10px; font-size:12px; color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:4px 12px;">디지털 올온덴쳐</span>
+      <span style="display:inline-block; margin-top:10px; font-size:12px; color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:4px 12px;">풀아치 임플란트</span>
     </div>
     <div style="scroll-snap-align:start; flex:0 0 380px; padding:44px 40px; background:var(--bg2); border-radius:6px;">
       <span style="font-family:'Playfair Display',serif; font-size:44px; color:var(--accent); line-height:.6;">“</span>
