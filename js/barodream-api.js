@@ -87,7 +87,8 @@
     var bar = document.getElementById('bd-notice-bar');
     if (!bar) return;
     var today = new Date().toISOString().slice(0, 10);
-    var qs = 'notices?is_active=eq.true&start_date=lte.' + today +
+    var qs = 'notices?is_active=eq.true&is_popup=eq.true&start_date=lte.' + today +
+             '&or=(end_date.gte.' + today + ',end_date.is.null)' +
              '&order=start_date.desc&limit=1';
     api(qs).then(function (rows) {
       if (!rows || !rows.length) return;
