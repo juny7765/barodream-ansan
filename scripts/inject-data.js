@@ -215,13 +215,14 @@ async function injectTreatments() {
     let html = fs.readFileSync(t.page_file, "utf-8");
     const orig = html;
     if (t.hero_headline && t.hero_headline.trim()) {
-      const hl = esc(t.hero_headline).replace(/\n/g, "<br>");
+      const hl = esc(t.hero_headline).replace(/\r\n|\r|\n/g, "<br>");
       html = html.replace(/(<h1 [^>]*>)([\s\S]*?)(<\/h1>)/, `$1${hl}$3`);
     }
     if (t.hero_subtitle && t.hero_subtitle.trim()) {
+      const sub = esc(t.hero_subtitle).replace(/\r\n|\r|\n/g, "<br>");
       html = html.replace(
         /(<p [^>]*clamp\(17px,2vw,20px\)[^>]*>)([\s\S]*?)(<\/p>)/,
-        `$1${esc(t.hero_subtitle)}$3`,
+        `$1${sub}$3`,
       );
     }
     if (html !== orig) {
@@ -343,7 +344,7 @@ async function injectBeforeAfter() {
   await injectFaqs();
   await injectGalleries();
   await injectSeo(); // seed_seo가 현재 head와 일치 → 편집분만 반영(회귀 없음, dry-run 0/21 확인)
-  // await injectTreatments(); // ⚠ db/sync_treatments_hero.sql 실행 후 활성화(회귀 방지)
+  await injectTreatments(); // sync_treatments_hero.sql 실행 완료 → 활성화(편집분만 반영)
 })().catch((e) => {
   console.error(e);
   process.exit(1);
