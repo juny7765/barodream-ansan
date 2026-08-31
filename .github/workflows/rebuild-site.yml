@@ -1,0 +1,39 @@
+name: Rebuild Static Site
+
+# 관리자페이지에서 workflow_dispatch로 트리거 (리뷰 등 패턴 B 데이터 반영)
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write   # 워크플로우가 index.html 커밋·푸시할 권한
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install deps
+        run: npm install @supabase/supabase-js --no-save
+
+      - name: Inject data from Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: node scripts/inject-data.js
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --staged --quiet; then
+            echo "변경 없음 — 커밋 생략"
+          else
+            git commit -m "chore: 관리자 데이터 자동 반영 (리뷰)"
+            git push
+          fi
