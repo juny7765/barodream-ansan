@@ -157,6 +157,52 @@ ${cards}
 </section>`;
 }
 
+// HTML 속성값 이스케이프(따옴표 포함)
+function attrEsc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+// 태그가 있으면 교체(없으면 그대로). 편집된 값만 반영 → 회귀 없음.
+function replaceIf(html, re, val) {
+  return re.test(html) ? html.replace(re, val) : html;
+}
+
+async function injectSeo() {
+  const data = await rest("seo_settings?select=*");
+  if (!data || !data.length) return;
+  for (const s of data) {
+    const file = s.page_file;
+    if (!file || !fs.existsSync(file)) continue;
+    let html = fs.readFileSync(file, "utf-8");
+    const orig = html;
+    if (s.page_title)
+      html = replaceIf(html, /<title>[\s\S]*?<\/title>/, "<title>" + esc(s.page_title) + "</title>");
+    if (s.meta_description)
+      html = replaceIf(html, /(<meta name="description" content=")[\s\S]*?("\s*\/?>)/, "$1" + attrEsc(s.meta_description) + "$2");
+    if (s.meta_keywords) {
+      if (/<meta name="keywords" content="/.test(html)) {
+        html = html.replace(/(<meta name="keywords" content=")[\s\S]*?("\s*\/?>)/, "$1" + attrEsc(s.meta_keywords) + "$2");
+      } else {
+        html = html.replace(/(<meta name="description"[^>]*>)/, '$1\n<meta name="keywords" content="' + attrEsc(s.meta_keywords) + '">');
+      }
+    }
+    if (s.og_title)
+      html = replaceIf(html, /(<meta property="og:title" content=")[\s\S]*?("\s*\/?>)/, "$1" + attrEsc(s.og_title) + "$2");
+    if (s.og_description)
+      html = replaceIf(html, /(<meta property="og:description" content=")[\s\S]*?("\s*\/?>)/, "$1" + attrEsc(s.og_description) + "$2");
+    if (s.og_image_url)
+      html = replaceIf(html, /(<meta property="og:image" content=")[\s\S]*?("\s*\/?>)/, "$1" + attrEsc(s.og_image_url) + "$2");
+    if (s.canonical_url)
+      html = replaceIf(html, /(<link rel="canonical" href=")[\s\S]*?("\s*\/?>)/, "$1" + attrEsc(s.canonical_url) + "$2");
+    if (s.robots)
+      html = replaceIf(html, /(<meta name="robots" content=")[\s\S]*?("\s*\/?>)/, "$1" + attrEsc(s.robots) + "$2");
+    if (html !== orig) {
+      fs.writeFileSync(file, html);
+      console.log(`${file} SEO 반영`);
+    }
+  }
+}
+
 // 진료 페이지 히어로(headline/subtitle) 주입.
 // ⚠ 활성화 전 db/sync_treatments_hero.sql 로 DB를 현재 페이지와 일치시켜야 회귀가 없다.
 async function injectTreatments() {
@@ -296,6 +342,7 @@ async function injectBeforeAfter() {
   await injectDoctors();
   await injectFaqs();
   await injectGalleries();
+  await injectSeo(); // seed_seo가 현재 head와 일치 → 편집분만 반영(회귀 없음, dry-run 0/21 확인)
   // await injectTreatments(); // ⚠ db/sync_treatments_hero.sql 실행 후 활성화(회귀 방지)
 })().catch((e) => {
   console.error(e);
