@@ -157,6 +157,34 @@ ${cards}
 </section>`;
 }
 
+// 진료 페이지 히어로(headline/subtitle) 주입.
+// ⚠ 활성화 전 db/sync_treatments_hero.sql 로 DB를 현재 페이지와 일치시켜야 회귀가 없다.
+async function injectTreatments() {
+  const data = await rest(
+    "treatments?select=page_file,hero_headline,hero_subtitle&is_active=eq.true",
+  );
+  if (!data || !data.length) return;
+  for (const t of data) {
+    if (!t.page_file || !fs.existsSync(t.page_file)) continue;
+    let html = fs.readFileSync(t.page_file, "utf-8");
+    const orig = html;
+    if (t.hero_headline && t.hero_headline.trim()) {
+      const hl = esc(t.hero_headline).replace(/\n/g, "<br>");
+      html = html.replace(/(<h1 [^>]*>)([\s\S]*?)(<\/h1>)/, `$1${hl}$3`);
+    }
+    if (t.hero_subtitle && t.hero_subtitle.trim()) {
+      html = html.replace(
+        /(<p [^>]*clamp\(17px,2vw,20px\)[^>]*>)([\s\S]*?)(<\/p>)/,
+        `$1${esc(t.hero_subtitle)}$3`,
+      );
+    }
+    if (html !== orig) {
+      fs.writeFileSync(t.page_file, html);
+      console.log(`${t.page_file} 히어로 반영`);
+    }
+  }
+}
+
 async function injectGalleries() {
   const data = await rest(
     "galleries?select=title,image_url,alt_text,category,display_order&is_active=eq.true" +
@@ -268,6 +296,7 @@ async function injectBeforeAfter() {
   await injectDoctors();
   await injectFaqs();
   await injectGalleries();
+  // await injectTreatments(); // ⚠ db/sync_treatments_hero.sql 실행 후 활성화(회귀 방지)
 })().catch((e) => {
   console.error(e);
   process.exit(1);
