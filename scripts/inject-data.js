@@ -104,6 +104,71 @@ ${lis}
   </div>`;
 }
 
+function faqDetails(f, isLast) {
+  const bottom = isLast ? " border-bottom:1px solid var(--line);" : "";
+  return `    <details style="border-top:1px solid var(--line);${bottom}"><summary style="display:flex; justify-content:space-between; align-items:center; gap:20px; padding:28px 4px;"><span style="font-family:'Noto Serif KR',serif; font-size:19px; letter-spacing:-0.02em; color:#1A1A1A;">${esc(f.question)}</span><span class="bd-faq-mark" style="color:var(--accent); font-size:22px;">+</span></summary><p style="font-size:16px; line-height:1.8; color:#4A4A4A; margin:0 0 28px; padding:0 4px;">${esc(f.answer)}</p></details>`;
+}
+
+function faqSectionInner(faqs) {
+  const items = faqs.map((f, i) => faqDetails(f, i === faqs.length - 1)).join("\n");
+  return `  <div style="max-width:840px; margin:0 auto;">
+    <div style="text-align:center; margin-bottom:56px;">
+      <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:15px; color:var(--accent); margin:0 0 16px;">FAQ</p>
+      <h2 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(24px,3.6vw,36px); letter-spacing:-0.02em; color:#1A1A1A; margin:0;">자주 묻는 질문</h2>
+    </div>
+${items}
+  </div>`;
+}
+
+function faqJsonLd(faqs) {
+  const obj = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
+  return '<script type="application/ld+json">\n' + JSON.stringify(obj, null, 2) + "\n</script>";
+}
+
+async function injectFaqs() {
+  const data = await rest(
+    "faqs?select=page_slug,question,answer,display_order&is_active=eq.true&order=page_slug.asc&order=display_order.asc",
+  );
+  if (!data || !data.length) {
+    console.log("FAQ 없음 — 각 페이지 기본값 유지");
+    return;
+  }
+  const byPage = {};
+  data.forEach((f) => {
+    const k = f.page_slug || "main";
+    (byPage[k] = byPage[k] || []).push(f);
+  });
+  for (const [slug, faqs] of Object.entries(byPage)) {
+    const file = slug === "main" ? "index.html" : `${slug}.html`;
+    if (!fs.existsSync(file)) {
+      console.log(`FAQ: ${file} 없음 — 스킵`);
+      continue;
+    }
+    let html = fs.readFileSync(file, "utf-8");
+    const orig = html;
+    const secRe = /(<section id="faq"[^>]*>)([\s\S]*?)(<\/section>)/;
+    if (secRe.test(html)) html = html.replace(secRe, `$1\n${faqSectionInner(faqs)}\n$3`);
+    const ldRe = /<script type="application\/ld\+json">\s*\{\s*"@context"[^<]*?"@type": "FAQPage"[\s\S]*?<\/script>/;
+    if (ldRe.test(html)) {
+      html = html.replace(ldRe, faqJsonLd(faqs));
+    } else if (html.indexOf("</head>") !== -1) {
+      html = html.replace("</head>", faqJsonLd(faqs) + "\n</head>"); // 없으면 새로 추가
+    }
+    if (html !== orig) {
+      fs.writeFileSync(file, html);
+      console.log(`${file} FAQ ${faqs.length}건 반영(목록+JSON-LD)`);
+    }
+  }
+}
+
 async function injectDoctors() {
   const data = await rest("doctors?select=*&is_active=eq.true");
   if (!data || !data.length) {
@@ -156,7 +221,7 @@ async function injectBeforeAfter() {
   await injectMainReviews();
   await injectBeforeAfter();
   await injectDoctors();
-  // 향후: injectFaqs() 등 추가
+  await injectFaqs();
 })().catch((e) => {
   console.error(e);
   process.exit(1);
