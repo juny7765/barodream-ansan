@@ -38,6 +38,21 @@ function reviewCard(r) {
     </div>`;
 }
 
+function baCard(r) {
+  const meta = [r.description, r.duration ? `치료기간 ${r.duration}` : ""].filter(Boolean).join(" · ");
+  return `      <div style="border:1px solid var(--line); border-radius:6px; overflow:hidden;">
+        <div style="display:grid; grid-template-columns:1fr 1fr;">
+          <img src="${esc(r.before_image_url)}" alt="치료 전" style="width:100%; height:220px; object-fit:cover;">
+          <img src="${esc(r.after_image_url)}" alt="치료 후" style="width:100%; height:220px; object-fit:cover;">
+        </div>
+        <div style="padding:28px;">
+          <p style="font-size:12px; letter-spacing:0.08em; color:var(--accent); margin:0 0 10px;">${esc(r.treatment_category)}</p>
+          <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:19px; line-height:1.5; letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 10px;">${esc(r.treatment_name)}</h3>
+          <p style="font-size:14px; line-height:1.6; color:#8A8A8A; margin:0;">${esc(meta)}</p>
+        </div>
+      </div>`;
+}
+
 function replaceBetween(html, startRe, endMarker, inner) {
   const re = new RegExp(`(${startRe})([\\s\\S]*?)(${endMarker})`);
   if (!re.test(html)) return null;
@@ -64,9 +79,30 @@ async function injectMainReviews() {
   console.log(`index.html 대표리뷰 ${data.length}건 반영 완료`);
 }
 
+async function injectBeforeAfter() {
+  const data = await rest(
+    "before_after?select=treatment_name,treatment_category,before_image_url,after_image_url,description,duration,display_order" +
+      "&is_active=eq.true&consent_signed=eq.true&order=display_order.asc",
+  );
+  if (!data || !data.length) {
+    console.log("전후사진(동의·활성) 없음 — cases.html 기본값 유지");
+    return;
+  }
+  let html = fs.readFileSync("cases.html", "utf-8");
+  const cards = data.map(baCard).join("\n\n");
+  const out = replaceBetween(html, "<!-- BEFORE_AFTER:START[^>]*-->", "<!-- BEFORE_AFTER:END -->", cards);
+  if (!out) {
+    console.log("cases.html에 BEFORE_AFTER 마커 없음 — 스킵");
+    return;
+  }
+  fs.writeFileSync("cases.html", out);
+  console.log(`cases.html 전후사진 ${data.length}건 반영 완료`);
+}
+
 (async () => {
   await injectMainReviews();
-  // 향후: injectBeforeAfter(), injectDoctors(), injectFaqs() 등 추가
+  await injectBeforeAfter();
+  // 향후: injectDoctors(), injectFaqs() 등 추가
 })().catch((e) => {
   console.error(e);
   process.exit(1);
