@@ -1,8 +1,7 @@
 /* inject-data.js — 패턴 B: Supabase 데이터를 정적 HTML에 빌드 시 삽입
- * GitHub Actions(rebuild-site.yml)에서 실행.
- * env: SUPABASE_URL, SUPABASE_KEY (publishable key로 충분 — 공개 읽기 정책 사용)
+ * GitHub Actions(rebuild-site.yml)에서 실행. 의존성 없음(Node 내장 fetch 사용).
+ * env: SUPABASE_URL, SUPABASE_KEY (publishable key — 공개 읽기 정책)
  */
-const { createClient } = require("@supabase/supabase-js");
 const fs = require("fs");
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
@@ -12,7 +11,14 @@ if (!SUPABASE_URL || !SUPABASE_KEY) {
   console.error("SUPABASE_URL / SUPABASE_KEY 환경변수가 없습니다.");
   process.exit(1);
 }
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+async function rest(path) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
+  });
+  if (!res.ok) throw new Error(`Supabase ${res.status}: ${await res.text()}`);
+  return res.json();
+}
 
 function esc(s) {
   return String(s == null ? "" : s)
@@ -39,14 +45,10 @@ function replaceBetween(html, startRe, endMarker, inner) {
 }
 
 async function injectMainReviews() {
-  const { data, error } = await supabase
-    .from("reviews")
-    .select("patient_name, content, treatment_name, display_order")
-    .eq("is_active", true)
-    .eq("is_featured", true)
-    .order("display_order", { ascending: true })
-    .limit(8);
-  if (error) throw error;
+  const data = await rest(
+    "reviews?select=patient_name,content,treatment_name,display_order" +
+      "&is_active=eq.true&is_featured=eq.true&order=display_order.asc&limit=8",
+  );
   if (!data || !data.length) {
     console.log("대표리뷰(featured·active) 없음 — index.html 기본값 유지");
     return;
