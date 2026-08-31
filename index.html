@@ -626,7 +626,9 @@
       <p style="font-family:'Pretendard',sans-serif; font-size:18px; line-height:1.6; color:#1A1A1A; margin:0 0 24px;">경기 안산시 단원구 고잔로 108 대동조이월드 405호</p>
       <div style="height:1px; background:var(--line); margin:0 0 24px;"></div>
       <table style="width:100%; border-collapse:collapse; font-size:15px; color:#4A4A4A;">
-        <tbody>
+        <!-- 진료시간: 관리자에서 저장하면 barodream-api.js가 아래 tbody를 실시간으로 교체합니다.
+             미입력 상태에서는 이 기본 마크업이 그대로 노출됩니다. -->
+        <tbody id="bd-hours">
           <tr><td style="padding:8px 0; color:#1A1A1A; font-weight:500;">월 · 화 · 목 · 금</td><td style="padding:8px 0; text-align:right;">09:30 – 18:30</td></tr>
           <tr><td style="padding:8px 0; color:#1A1A1A; font-weight:500;">수요일</td><td style="padding:8px 0; text-align:right;">09:30 – 21:00</td></tr>
           <tr><td style="padding:8px 0; color:#1A1A1A; font-weight:500;">토요일</td><td style="padding:8px 0; text-align:right;">09:30 – 13:30</td></tr>

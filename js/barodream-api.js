@@ -9,6 +9,7 @@
  *   - 팝업: 자동 실행(추가 마크업 불필요)
  *   - 공지 배너: <div id="bd-notice-bar"></div> 있으면 자동 렌더
  *   - 상담 폼: <form id="consultation-form"> 있으면 자동 제출 처리
+ *   - 진료시간: <tbody id="bd-hours"> 있으면 자동 렌더(미입력 시 기존 마크업 유지)
  *
  * ※ 키 값은 config.js 에서 관리합니다(이 파일은 수정 불필요).
  * ============================================================ */
@@ -134,12 +135,116 @@
     });
   }
 
+  /* ── 4. 진료 시간 (clinic_hours + special_hours) ───────── */
+  var DAY_ORDER = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  var DAY_SHORT = { mon: '월', tue: '화', wed: '수', thu: '목', fri: '금', sat: '토', sun: '일' };
+  var DAY_FULL = {
+    mon: '월요일', tue: '화요일', wed: '수요일', thu: '목요일',
+    fri: '금요일', sat: '토요일', sun: '일요일'
+  };
+
+  function hhmm(t) { return t ? String(t).slice(0, 5) : ''; }
+
+  function localToday() {
+    var d = new Date();
+    function p(n) { return (n < 10 ? '0' : '') + n; }
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+  }
+
+  function initClinicHours() {
+    var box = document.getElementById('bd-hours');
+    if (!box) return;
+    var today = localToday();
+    Promise.all([
+      api('clinic_hours?select=*'),
+      api('special_hours?select=*&date=gte.' + today + '&order=date.asc&limit=5')
+    ]).then(function (res) {
+      var hours = res[0] || [];
+      var specials = res[1] || [];
+      // 아직 원장님 확인 전(시간 미입력)이면 기존 안내 문구를 그대로 둔다.
+      var usable = hours.filter(function (h) {
+        return h.is_closed === true || (h.opens && h.closes);
+      });
+      if (!usable.length) return;
+      box.innerHTML = renderHoursRows(hours) + renderSpecialRows(specials);
+    }).catch(function () {});
+  }
+
+  /** 동일한 진료시간을 가진 요일끼리 묶어 표 행을 만든다. */
+  function renderHoursRows(hours) {
+    var byDay = {};
+    hours.forEach(function (h) { byDay[h.day_of_week] = h; });
+
+    var groups = [];   // { sig, days[], row }
+    var index = {};
+    DAY_ORDER.forEach(function (d) {
+      var h = byDay[d];
+      if (!h) return;
+      var sig = h.is_closed
+        ? 'closed'
+        : [hhmm(h.opens), hhmm(h.closes), hhmm(h.lunch_start), hhmm(h.lunch_end), h.note || ''].join('|');
+      if (index[sig] === undefined) {
+        index[sig] = groups.length;
+        groups.push({ sig: sig, days: [d], row: h });
+      } else {
+        groups[index[sig]].days.push(d);
+      }
+    });
+
+    return groups.map(function (g) {
+      var label = g.days.length === 1
+        ? DAY_FULL[g.days[0]]
+        : g.days.map(function (d) { return DAY_SHORT[d]; }).join(' · ');
+      var closed = g.row.is_closed;
+      var nameStyle = closed
+        ? 'padding:8px 0; color:#8A8A8A;'
+        : 'padding:8px 0; color:#1A1A1A; font-weight:500;';
+      var valStyle = closed
+        ? 'padding:8px 0; text-align:right; color:#8A8A8A;'
+        : 'padding:8px 0; text-align:right;';
+      var value;
+      if (closed) {
+        value = '휴진';
+      } else {
+        value = esc(hhmm(g.row.opens)) + ' – ' + esc(hhmm(g.row.closes));
+        if (g.row.lunch_start && g.row.lunch_end) {
+          value += '<br><span style="font-size:13px; color:#8A8A8A;">점심 ' +
+            esc(hhmm(g.row.lunch_start)) + ' – ' + esc(hhmm(g.row.lunch_end)) + '</span>';
+        }
+        if (g.row.note) {
+          value += '<br><span style="font-size:13px; color:#8A8A8A;">' + esc(g.row.note) + '</span>';
+        }
+      }
+      return '<tr><td style="' + nameStyle + '">' + esc(label) + '</td>' +
+             '<td style="' + valStyle + '">' + value + '</td></tr>';
+    }).join('');
+  }
+
+  /** 다가오는 임시 변경(휴진·단축진료)을 표 아래에 덧붙인다. */
+  function renderSpecialRows(specials) {
+    if (!specials || !specials.length) return '';
+    var rows = specials.map(function (s) {
+      var d = new Date(s.date + 'T00:00:00');
+      var when = (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' +
+        ['일', '월', '화', '수', '목', '금', '토'][d.getDay()] + ')';
+      var what = s.is_closed ? '휴진' : esc(hhmm(s.opens)) + ' – ' + esc(hhmm(s.closes));
+      if (s.reason) what += ' <span style="color:#8A8A8A;">· ' + esc(s.reason) + '</span>';
+      return '<tr><td style="padding:6px 0; color:#B45309; font-weight:500;">' + esc(when) + '</td>' +
+             '<td style="padding:6px 0; text-align:right; color:#B45309;">' + what + '</td></tr>';
+    }).join('');
+    return '<tr><td colspan="2" style="padding:14px 0 4px;">' +
+           '<div style="height:1px; background:#E8E2DA;"></div>' +
+           '<div style="margin-top:10px; font-size:13px; color:#8A8A8A;">임시 진료시간 안내</div>' +
+           '</td></tr>' + rows;
+  }
+
   /* ── 실행 ──────────────────────────────────────────────── */
   function boot() {
     initConsultForm();      // 폼은 키 없어도 바인딩(제출 시 안내)
     if (!READY) return;     // 키 미설정 시 조회성 기능은 대기
     initPopup();
     initNotices();
+    initClinicHours();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
