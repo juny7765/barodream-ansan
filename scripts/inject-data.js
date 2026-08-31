@@ -133,6 +133,51 @@ function faqJsonLd(faqs) {
   return '<script type="application/ld+json">\n' + JSON.stringify(obj, null, 2) + "\n</script>";
 }
 
+function galleryCard(g) {
+  const cap = g.title
+    ? `\n        <figcaption style="padding:12px 14px; font-size:14px; color:#4A4A4A;">${esc(g.title)}</figcaption>`
+    : "";
+  return `      <figure style="margin:0; border-radius:6px; overflow:hidden; background:var(--bg2);">
+        <img src="${esc(g.image_url)}" alt="${esc(g.alt_text || g.title || "")}" style="width:100%; height:220px; object-fit:cover; display:block;">${cap}
+      </figure>`;
+}
+
+function gallerySection(items) {
+  const cards = items.map(galleryCard).join("\n");
+  return `<section data-reveal style="padding:120px 24px; background:#fff;">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div style="text-align:center; margin-bottom:56px;">
+      <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:15px; color:var(--accent); margin:0 0 16px;">Gallery</p>
+      <h2 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(26px,4vw,40px); letter-spacing:-0.02em; color:#1A1A1A; margin:0;">둘러보기</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px;">
+${cards}
+    </div>
+  </div>
+</section>`;
+}
+
+async function injectGalleries() {
+  const data = await rest(
+    "galleries?select=title,image_url,alt_text,category,display_order&is_active=eq.true" +
+      "&order=category.asc&order=display_order.asc",
+  );
+  let html = fs.readFileSync("index.html", "utf-8");
+  const re = /(<!-- GALLERY:START -->)([\s\S]*?)(<!-- GALLERY:END -->)/;
+  if (!re.test(html)) {
+    console.log("index.html GALLERY 마커 없음 — 스킵");
+    return;
+  }
+  const inner = data && data.length ? `\n${gallerySection(data)}\n` : "";
+  const out = html.replace(re, `$1${inner}$3`);
+  if (out !== html) {
+    fs.writeFileSync("index.html", out);
+    console.log(`index.html 갤러리 ${data ? data.length : 0}건 반영`);
+  } else {
+    console.log("갤러리 변경 없음(이미지 0건)");
+  }
+}
+
 async function injectFaqs() {
   const data = await rest(
     "faqs?select=page_slug,question,answer,display_order&is_active=eq.true&order=page_slug.asc&order=display_order.asc",
@@ -222,6 +267,7 @@ async function injectBeforeAfter() {
   await injectBeforeAfter();
   await injectDoctors();
   await injectFaqs();
+  await injectGalleries();
 })().catch((e) => {
   console.error(e);
   process.exit(1);
