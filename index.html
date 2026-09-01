@@ -625,16 +625,15 @@
       <h2 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:40px; letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 24px;">오시는 길</h2>
       <p style="font-family:'Pretendard',sans-serif; font-size:18px; line-height:1.6; color:#1A1A1A; margin:0 0 24px;">경기 안산시 단원구 고잔로 108 대동조이월드 405호</p>
       <div style="height:1px; background:var(--line); margin:0 0 24px;"></div>
-      <table style="width:100%; border-collapse:collapse; font-size:15px; color:#4A4A4A;">
-        <!-- 진료시간: 관리자에서 저장하면 barodream-api.js가 아래 tbody를 실시간으로 교체합니다.
-             미입력 상태에서는 이 기본 마크업이 그대로 노출됩니다. -->
-        <tbody id="bd-hours">
-          <tr><td style="padding:8px 0; color:#1A1A1A; font-weight:500;">월 · 화 · 목 · 금</td><td style="padding:8px 0; text-align:right;">09:30 – 18:30</td></tr>
-          <tr><td style="padding:8px 0; color:#1A1A1A; font-weight:500;">수요일</td><td style="padding:8px 0; text-align:right;">09:30 – 21:00</td></tr>
-          <tr><td style="padding:8px 0; color:#1A1A1A; font-weight:500;">토요일</td><td style="padding:8px 0; text-align:right;">09:30 – 13:30</td></tr>
-          <tr><td style="padding:8px 0; color:#8A8A8A;">일요일 · 공휴일</td><td style="padding:8px 0; text-align:right; color:#8A8A8A;">휴진</td></tr>
-        </tbody>
-      </table>
+      <!-- 진료시간: 관리자 저장 시 barodream-api.js가 #bd-hours를 실시간 교체. 미입력 시 아래 기본 노출.
+           각 행은 flex 한 줄(요일 좌 / 시간 우)로 높이 통일, 점심시간은 하단에 공통 1줄. -->
+      <div id="bd-hours" style="font-size:15px; color:#4A4A4A;">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0;"><span style="color:#1A1A1A; font-weight:500;">월·화·목·금</span><span>09:30 – 18:30</span></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0;"><span style="color:#1A1A1A; font-weight:500;">수요일</span><span>09:30 – 21:00</span></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0;"><span style="color:#1A1A1A; font-weight:500;">토요일</span><span>09:30 – 13:30</span></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0;"><span style="color:#8A8A8A;">일요일·공휴일</span><span style="color:#8A8A8A;">휴진</span></div>
+        <div style="border-top:1px solid var(--line); margin-top:8px; padding-top:10px; display:flex; align-items:center; justify-content:space-between;"><span style="font-size:13px; color:#8A8A8A;">점심시간</span><span style="font-size:13px; color:#8A8A8A;">13:00 – 14:00 (토요일 제외)</span></div>
+      </div>
       <p style="font-family:'Pretendard',sans-serif; font-size:20px; font-weight:600; color:#1A1A1A; margin:24px 0 0;"><a href="tel:031-402-2282" style="color:inherit; text-decoration:none;">031-402-2282</a></p>
       <div class="bd-loc2-btns">
         <a href="https://pf.kakao.com/_ySveK" target="_blank" rel="noopener" style="background:#FEE500; color:#3A1D1D;">카카오톡 상담</a>

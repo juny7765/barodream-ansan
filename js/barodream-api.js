@@ -170,72 +170,71 @@
     }).catch(function () {});
   }
 
-  /** 동일한 진료시간을 가진 요일끼리 묶어 표 행을 만든다. */
+  /** 같은 진료시간(개원·마감) 요일끼리 묶어 한 줄(flex)로 만든다. 점심은 행에 넣지 않는다. */
   function renderHoursRows(hours) {
     var byDay = {};
     hours.forEach(function (h) { byDay[h.day_of_week] = h; });
 
-    var groups = [];   // { sig, days[], row }
+    var groups = [];
     var index = {};
     DAY_ORDER.forEach(function (d) {
       var h = byDay[d];
       if (!h) return;
-      var sig = h.is_closed
-        ? 'closed'
-        : [hhmm(h.opens), hhmm(h.closes), hhmm(h.lunch_start), hhmm(h.lunch_end), h.note || ''].join('|');
+      var sig = h.is_closed ? 'closed' : (hhmm(h.opens) + '|' + hhmm(h.closes));
       if (index[sig] === undefined) {
         index[sig] = groups.length;
-        groups.push({ sig: sig, days: [d], row: h });
+        groups.push({ days: [d], row: h });
       } else {
         groups[index[sig]].days.push(d);
       }
     });
 
-    return groups.map(function (g) {
+    // 요일별 한 줄 (요일 좌 / 시간 우) — 높이 통일
+    var rowsHtml = groups.map(function (g) {
       var label = g.days.length === 1
         ? DAY_FULL[g.days[0]]
-        : g.days.map(function (d) { return DAY_SHORT[d]; }).join(' · ');
+        : g.days.map(function (d) { return DAY_SHORT[d]; }).join('·');
       var closed = g.row.is_closed;
-      var nameStyle = closed
-        ? 'padding:8px 0; color:#8A8A8A;'
-        : 'padding:8px 0; color:#1A1A1A; font-weight:500;';
-      var valStyle = closed
-        ? 'padding:8px 0; text-align:right; color:#8A8A8A;'
-        : 'padding:8px 0; text-align:right;';
-      var value;
-      if (closed) {
-        value = '휴진';
-      } else {
-        value = esc(hhmm(g.row.opens)) + ' – ' + esc(hhmm(g.row.closes));
-        if (g.row.lunch_start && g.row.lunch_end) {
-          value += '<br><span style="font-size:13px; color:#8A8A8A;">점심 ' +
-            esc(hhmm(g.row.lunch_start)) + ' – ' + esc(hhmm(g.row.lunch_end)) + '</span>';
-        }
-        if (g.row.note) {
-          value += '<br><span style="font-size:13px; color:#8A8A8A;">' + esc(g.row.note) + '</span>';
-        }
-      }
-      return '<tr><td style="' + nameStyle + '">' + esc(label) + '</td>' +
-             '<td style="' + valStyle + '">' + value + '</td></tr>';
+      var value = closed ? '휴진' : (esc(hhmm(g.row.opens)) + ' – ' + esc(hhmm(g.row.closes)));
+      var labelColor = closed ? '#8A8A8A' : '#1A1A1A';
+      var valueColor = closed ? '#8A8A8A' : '#4A4A4A';
+      var weight = closed ? '400' : '500';
+      return '<div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0;">' +
+        '<span style="color:' + labelColor + '; font-weight:' + weight + ';">' + esc(label) + '</span>' +
+        '<span style="color:' + valueColor + ';">' + value + '</span></div>';
     }).join('');
+
+    // 점심시간: 하단에 구분선 + 공통 한 줄 (보조 톤)
+    var open = hours.filter(function (h) { return !h.is_closed; });
+    var withLunch = open.filter(function (h) { return h.lunch_start && h.lunch_end; });
+    if (withLunch.length) {
+      var ls = hhmm(withLunch[0].lunch_start);
+      var le = hhmm(withLunch[0].lunch_end);
+      var noLunch = open.filter(function (h) { return !(h.lunch_start && h.lunch_end); });
+      var except = noLunch.length
+        ? ' (' + noLunch.map(function (h) { return DAY_FULL[h.day_of_week]; }).join('·') + ' 제외)'
+        : '';
+      rowsHtml += '<div style="border-top:1px solid var(--line); margin-top:8px; padding-top:10px; display:flex; align-items:center; justify-content:space-between;">' +
+        '<span style="font-size:13px; color:#8A8A8A;">점심시간</span>' +
+        '<span style="font-size:13px; color:#8A8A8A;">' + esc(ls) + ' – ' + esc(le) + except + '</span></div>';
+    }
+    return rowsHtml;
   }
 
-  /** 다가오는 임시 변경(휴진·단축진료)을 표 아래에 덧붙인다. */
+  /** 다가오는 임시 변경(휴진·단축진료)을 하단에 덧붙인다. */
   function renderSpecialRows(specials) {
     if (!specials || !specials.length) return '';
     var rows = specials.map(function (s) {
       var d = new Date(s.date + 'T00:00:00');
       var when = (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' +
         ['일', '월', '화', '수', '목', '금', '토'][d.getDay()] + ')';
-      var what = s.is_closed ? '휴진' : esc(hhmm(s.opens)) + ' – ' + esc(hhmm(s.closes));
+      var what = s.is_closed ? '휴진' : (esc(hhmm(s.opens)) + ' – ' + esc(hhmm(s.closes)));
       if (s.reason) what += ' <span style="color:#8A8A8A;">· ' + esc(s.reason) + '</span>';
-      return '<tr><td style="padding:6px 0; color:#B45309; font-weight:500;">' + esc(when) + '</td>' +
-             '<td style="padding:6px 0; text-align:right; color:#B45309;">' + what + '</td></tr>';
+      return '<div style="display:flex; align-items:center; justify-content:space-between; padding:6px 0; color:#B45309;">' +
+        '<span style="font-weight:500;">' + esc(when) + '</span><span>' + what + '</span></div>';
     }).join('');
-    return '<tr><td colspan="2" style="padding:14px 0 4px;">' +
-           '<div style="height:1px; background:#E8E2DA;"></div>' +
-           '<div style="margin-top:10px; font-size:13px; color:#8A8A8A;">임시 진료시간 안내</div>' +
-           '</td></tr>' + rows;
+    return '<div style="border-top:1px solid var(--line); margin-top:12px; padding-top:10px;">' +
+      '<div style="font-size:13px; color:#8A8A8A; margin-bottom:6px;">임시 진료시간 안내</div>' + rows + '</div>';
   }
 
   /* ── 실행 ──────────────────────────────────────────────── */
