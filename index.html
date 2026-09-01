@@ -105,7 +105,7 @@
     .bd-systems-grid > div{ padding:0!important; }
     .bd-care-grid{ grid-template-columns:1fr!important; }
     .bd-doctors-grid{ grid-template-columns:1fr!important; gap:56px!important; }
-    .bd-lab-grid{ grid-template-columns:1fr!important; }
+    .bd-lab-grid{ grid-template-columns:1fr!important; padding:0!important; }
     .bd-lab-text{ padding:56px 28px!important; }
     .bd-loc-grid{ grid-template-columns:1fr!important; }
     .bd-footer-grid{ grid-template-columns:1fr!important; gap:36px!important; }
@@ -517,7 +517,7 @@
 
 <!-- ============ 6. DOCTORS ============ -->
 <section id="doctors" data-reveal style="padding:130px 24px; background:#fff;">
-  <div style="max-width:1200px; margin:0 auto;">
+  <div style="max-width:1200px; margin:0 auto; padding:0 40px;">
     <div style="text-align:center; margin-bottom:70px;">
       <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:15px; color:var(--accent); margin:0 0 16px;">Medical Team</p>
       <h2 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(26px,4vw,40px); letter-spacing:-0.02em; color:#1A1A1A; margin:0;">두 명의 원장이, 함께 봅니다</h2>
@@ -542,8 +542,9 @@
 </section>
 
 <!-- ============ 7. IN-HOUSE LAB ============ -->
+<!-- 배경(#141210)은 화면 끝까지 full-bleed, 콘텐츠(사진+텍스트)는 1200 컨테이너 안에서 정렬 -->
 <section data-reveal style="position:relative; padding:0; background:#141210;">
-  <div class="bd-lab-grid" style="display:grid; grid-template-columns:1fr 1fr; align-items:stretch; min-height:520px;">
+  <div class="bd-lab-grid" style="max-width:1200px; margin:0 auto; padding:0 40px; display:grid; grid-template-columns:1fr 1fr; align-items:stretch; min-height:520px;">
     <img src="images/facility_img3_5.jpg" alt="바로드림치과 안산점 원내 디지털 기공소" style="width:100%; height:100%; min-height:420px; object-fit:cover; object-position:center;">
     <div class="bd-lab-text" style="display:flex; flex-direction:column; justify-content:center; padding:90px 64px;">
       <div style="font-family:'Noto Serif KR',serif; font-size:72px; line-height:1; color:var(--accent); margin-bottom:26px;">作</div>
