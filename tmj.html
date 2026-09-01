@@ -91,6 +91,31 @@
   ]
 }
 </script>
+<style id="bd-mm-style">
+  .bd-mm-toggle{ display:none; }
+  @media (max-width:768px){
+    .bd-nav{ display:none!important; }
+    .bd-mm-toggle{ display:flex; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; padding:9px 8px; background:none; border:none; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+    .bd-mm-toggle span{ display:block; height:2px; width:100%; background:#1A1A1A; border-radius:2px; }
+  }
+  body.bd-mm-lock{ overflow:hidden; }
+  .bd-mm[hidden]{ display:none!important; }
+  .bd-mm{ position:fixed; inset:0; z-index:1000; }
+  .bd-mm-backdrop{ position:absolute; inset:0; background:rgba(10,10,10,.42); opacity:0; transition:opacity .3s ease; }
+  .bd-mm.is-open .bd-mm-backdrop{ opacity:1; }
+  .bd-mm-panel{ position:absolute; top:0; right:0; height:100%; width:min(86%,360px); background:#fff; box-shadow:-12px 0 44px rgba(0,0,0,.16); transform:translateX(100%); transition:transform .32s cubic-bezier(.4,0,.2,1); display:flex; flex-direction:column; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+  .bd-mm.is-open .bd-mm-panel{ transform:none; }
+  .bd-mm-head{ display:flex; align-items:center; justify-content:space-between; padding:20px 22px; border-bottom:1px solid var(--line); position:sticky; top:0; background:#fff; z-index:1; }
+  .bd-mm-x{ width:40px; height:40px; background:none; border:none; font-size:20px; color:#1A1A1A; cursor:pointer; line-height:1; -webkit-tap-highlight-color:transparent; }
+  .bd-mm-list{ list-style:none; margin:0; padding:6px 0 48px; }
+  .bd-mm-list > li{ border-bottom:1px solid var(--line); }
+  .bd-mm-parent, .bd-mm-link{ box-sizing:border-box; width:100%; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:17px 24px; margin:0; font-size:16px; font-family:'Noto Serif KR',serif; font-weight:500; color:#1A1A1A; background:none; border:none; text-align:left; text-decoration:none; cursor:pointer; letter-spacing:-0.01em; }
+  .bd-mm-caret{ color:var(--accent); font-size:12px; transition:transform .25s ease; }
+  .bd-mm-parent[aria-expanded="true"] .bd-mm-caret{ transform:rotate(180deg); }
+  .bd-mm-sub{ list-style:none; margin:0; padding:0; max-height:0; overflow:hidden; transition:max-height .3s ease; background:var(--bg2); }
+  .bd-mm-sub li{ border-top:1px solid rgba(26,26,26,.06); }
+  .bd-mm-sub a{ display:block; padding:13px 24px 13px 40px; font-size:14.5px; color:#4A4A4A; text-decoration:none; font-family:'Pretendard',sans-serif; letter-spacing:-0.01em; }
+</style>
 </head>
 <body>
 
@@ -153,7 +178,72 @@
     <a href="doctors.html" class="bd-nav-top">의료진소개</a>
     <a href="index.html#location" class="bd-nav-top">오시는 길</a>
   </nav>
+  <button class="bd-mm-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="bd-mobile-menu"><span></span><span></span><span></span></button>
 </header>
+<!-- bd-mobile-menu -->
+<div class="bd-mm" id="bd-mobile-menu" hidden>
+  <div class="bd-mm-backdrop" data-mm-close></div>
+  <nav class="bd-mm-panel" aria-label="모바일 메뉴">
+    <div class="bd-mm-head">
+      <span style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:19px; color:#1A1A1A;">바로드림치과</span>
+      <button class="bd-mm-x" data-mm-close aria-label="메뉴 닫기">&#10005;</button>
+    </div>
+    <ul class="bd-mm-list">
+      <li class="bd-mm-group">
+        <button class="bd-mm-parent" aria-expanded="false">임플란트<span class="bd-mm-caret">▾</span></button>
+        <ul class="bd-mm-sub">
+          <li><a href="implant-senior.html">시니올</a></li>
+          <li><a href="implant-all-on-x.html">풀아치 임플란트(All-on-X)</a></li>
+          <li><a href="implant-navigation.html">네비게이션 임플란트</a></li>
+          <li><a href="implant-immediate.html">즉시로딩</a></li>
+        </ul>
+      </li>
+      <li class="bd-mm-group">
+        <button class="bd-mm-parent" aria-expanded="false">의식하진정법<span class="bd-mm-caret">▾</span></button>
+        <ul class="bd-mm-sub">
+          <li><a href="sedation.html">의식하진정치료란</a></li>
+          <li><a href="implant-sedation.html">의식하진정법 임플란트</a></li>
+          <li><a href="caries.html">충치치료</a></li>
+          <li><a href="endo.html">신경치료</a></li>
+          <li><a href="perio.html">잇몸치료</a></li>
+          <li><a href="prosthesis.html">디지털 보철치료</a></li>
+        </ul>
+      </li>
+      <li class="bd-mm-group">
+        <button class="bd-mm-parent" aria-expanded="false">일반진료<span class="bd-mm-caret">▾</span></button>
+        <ul class="bd-mm-sub">
+          <li><a href="general-cavity.html">충치치료</a></li>
+          <li><a href="general-resin.html">레진치료</a></li>
+          <li><a href="general-inlay.html">인레이·온레이</a></li>
+          <li><a href="general-crown.html">크라운</a></li>
+          <li><a href="general-rootcanal.html">신경치료</a></li>
+          <li><a href="general-gum.html">잇몸치료</a></li>
+          <li><a href="general-wisdom.html">사랑니발치</a></li>
+        </ul>
+      </li>
+      <li class="bd-mm-group">
+        <button class="bd-mm-parent" aria-expanded="false">치아교정<span class="bd-mm-caret">▾</span></button>
+        <ul class="bd-mm-sub">
+          <li><a href="ortho.html">치아교정 안내</a></li>
+          <li><a href="ortho-adult.html">성인교정</a></li>
+          <li><a href="ortho-child.html">성장기 소아교정</a></li>
+          <li><a href="ortho-clear.html">투명교정</a></li>
+        </ul>
+      </li>
+      <li><a class="bd-mm-link" href="tmj.html">턱관절</a></li>
+      <li class="bd-mm-group">
+        <button class="bd-mm-parent" aria-expanded="false">바로드림 이야기<span class="bd-mm-caret">▾</span></button>
+        <ul class="bd-mm-sub">
+          <li><a href="column.html">칼럼</a></li>
+          <li><a href="cases.html">치료 사례</a></li>
+        </ul>
+      </li>
+      <li><a class="bd-mm-link" href="doctors.html">의료진소개</a></li>
+      <li><a class="bd-mm-link" href="index.html#location">오시는 길</a></li>
+    </ul>
+  </nav>
+</div>
+
 <div id="bd-notice-bar"></div>
 
 <!-- BLOCK 1 HERO -->
@@ -329,5 +419,26 @@
 </script>
 <script src="js/config.js"></script>
 <script src="js/barodream-api.js" defer></script>
+<script>
+  (function(){
+    var mm=document.getElementById('bd-mobile-menu');
+    var toggle=document.querySelector('.bd-mm-toggle');
+    if(!mm||!toggle) return;
+    function openMenu(){ mm.hidden=false; requestAnimationFrame(function(){ mm.classList.add('is-open'); }); document.body.classList.add('bd-mm-lock'); toggle.setAttribute('aria-expanded','true'); }
+    function closeMenu(){ mm.classList.remove('is-open'); document.body.classList.remove('bd-mm-lock'); toggle.setAttribute('aria-expanded','false'); setTimeout(function(){ mm.hidden=true; },330); }
+    toggle.addEventListener('click', openMenu);
+    Array.prototype.forEach.call(mm.querySelectorAll('[data-mm-close]'), function(el){ el.addEventListener('click', closeMenu); });
+    Array.prototype.forEach.call(mm.querySelectorAll('.bd-mm-parent'), function(p){
+      p.addEventListener('click', function(){
+        var exp=p.getAttribute('aria-expanded')==='true';
+        var sub=p.nextElementSibling;
+        p.setAttribute('aria-expanded', String(!exp));
+        if(sub){ sub.style.maxHeight = exp ? '0px' : sub.scrollHeight+'px'; }
+      });
+    });
+    Array.prototype.forEach.call(mm.querySelectorAll('a[href]'), function(a){ a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && mm.classList.contains('is-open')) closeMenu(); });
+  })();
+</script>
 </body>
 </html>
