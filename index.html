@@ -558,12 +558,11 @@
 <!-- ============ 8. REVIEWS ============ -->
 <section data-reveal style="padding:120px 0; background:#fff; overflow:hidden;">
   <div style="max-width:1200px; margin:0 auto; padding:0 40px;">
-    <div style="text-align:center; margin-bottom:60px;">
+    <div style="margin-bottom:56px;">
       <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:15px; color:var(--accent); margin:0 0 16px;">Voices</p>
       <h2 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(26px,4vw,40px); letter-spacing:-0.02em; color:#1A1A1A; margin:0;">환자의 말</h2>
     </div>
-  </div>
-  <div style="display:flex; gap:24px; padding:0 40px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;">
+    <div style="display:flex; gap:24px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;">
     <!-- REVIEWS:START — 관리자 대표리뷰가 이 사이에 자동 삽입됩니다(patternB). 아래는 기본값. -->
     <div style="scroll-snap-align:start; flex:0 0 380px; padding:44px 40px; background:var(--bg2); border-radius:6px;">
       <span style="font-family:'Playfair Display',serif; font-size:44px; color:var(--accent); line-height:.6;">“</span>
@@ -572,23 +571,24 @@
       <span style="display:inline-block; margin-top:10px; font-size:12px; color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:4px 12px;">임플란트</span>
     </div>
     <!-- REVIEWS:END -->
-  </div>
-  <div style="max-width:1200px; margin:44px auto 0; padding:0 40px; text-align:center;">
-    <a href="https://map.naver.com/p/search/%EB%B0%94%EB%A1%9C%EB%93%9C%EB%A6%BC%EC%B9%98%EA%B3%BC/place/1138828877?placePath=%2Freview" target="_blank" rel="noopener noreferrer" style="font-size:15px; color:#1A1A1A; text-decoration:none; border-bottom:1px solid #1A1A1A; padding-bottom:3px;">네이버 리뷰 더 보기</a>
+    </div>
+    <div style="margin:44px 0 0;">
+      <a href="https://map.naver.com/p/search/%EB%B0%94%EB%A1%9C%EB%93%9C%EB%A6%BC%EC%B9%98%EA%B3%BC/place/1138828877?placePath=%2Freview" target="_blank" rel="noopener noreferrer" style="font-size:15px; color:#1A1A1A; text-decoration:none; border-bottom:1px solid #1A1A1A; padding-bottom:3px;">네이버 리뷰 더 보기</a>
+    </div>
   </div>
 </section>
 
 <!-- ============ 9. LOCATION ============ -->
 <style>
   .bd-loc2{ padding:120px 24px; }
-  .bd-loc2-grid{ max-width:1200px; margin:0 auto; display:grid; grid-template-columns:3fr 2fr; gap:40px; align-items:stretch; }
+  .bd-loc2-grid{ max-width:1200px; margin:0 auto; padding:0 40px; display:grid; grid-template-columns:3fr 2fr; gap:40px; align-items:stretch; }
   .bd-loc2-map{ width:100%; height:450px; border:0; border-radius:4px; display:block; }
   .bd-loc2-info{ background:#fff; border:1px solid var(--line); border-radius:6px; padding:44px; }
   .bd-loc2-btns{ display:flex; flex-direction:column; gap:10px; margin-top:24px; }
   .bd-loc2-btns a{ text-align:center; padding:15px 0; font-size:15px; font-weight:600; text-decoration:none; border-radius:2px; }
   @media (max-width:768px){
     .bd-loc2{ padding:80px 20px; }
-    .bd-loc2-grid{ grid-template-columns:1fr; gap:24px; }
+    .bd-loc2-grid{ grid-template-columns:1fr; gap:24px; padding:0; }
     .bd-loc2-map{ height:300px; }
     .bd-loc2-info{ padding:32px 24px; }
   }
