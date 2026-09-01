@@ -595,9 +595,17 @@
 </style>
 <section id="location" data-reveal class="bd-loc2" style="background:var(--bg2);">
   <div class="bd-loc2-grid">
-    <!-- 좌: 구글 지도 -->
-    <iframe title="바로드림치과 안산점 위치 지도" class="bd-loc2-map" src="https://www.google.com/maps/embed?pb=!1m5!3m3!1m2!1s0x357b6f1b0470415b%3A0xcd015a093474f6b5!2z67CU66Gc65Oc66a87LmY6rO87J2Y7JuQ!5e0!3m2!1sko!2skr!4v1787894207333!5m2!1sko!2skr" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-    <!-- 우: 정보 -->
+    <!-- 좌: 지도 + 위치 요약(우측 카드와 높이 균형) -->
+    <div style="display:flex; flex-direction:column;">
+      <iframe title="바로드림치과 안산점 위치 지도" class="bd-loc2-map" src="https://www.google.com/maps/embed?pb=!1m5!3m3!1m2!1s0x357b6f1b0470415b%3A0xcd015a093474f6b5!2z67CU66Gc65Oc66a87LmY6rO87J2Y7JuQ!5e0!3m2!1sko!2skr!4v1787894207333!5m2!1sko!2skr" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <div style="flex:1; background:#fff; border:1px solid var(--line); border-radius:6px; padding:26px 28px; margin-top:16px;">
+        <p style="font-size:13px; letter-spacing:0.1em; color:#8A8A8A; margin:0 0 16px;">위치 안내</p>
+        <div style="display:flex; gap:14px; margin-bottom:14px;"><span style="flex:0 0 60px; color:#8A8A8A; font-size:14px;">주소</span><span style="font-size:15px; color:#1A1A1A; line-height:1.55;">경기 안산시 단원구 고잔로 108 대동조이월드 405호</span></div>
+        <div style="display:flex; gap:14px; margin-bottom:14px;"><span style="flex:0 0 60px; color:#8A8A8A; font-size:14px;">주차</span><span style="font-size:15px; color:#1A1A1A; line-height:1.55;">건물 주차장 이용 가능 · 자세한 사항은 전화로 안내해 드립니다</span></div>
+        <div style="display:flex; gap:14px;"><span style="flex:0 0 60px; color:#8A8A8A; font-size:14px;">대중교통</span><span style="font-size:15px; color:#1A1A1A; line-height:1.55;">지하철 4호선·수인분당선 <strong style="font-weight:600;">안산중앙역</strong> 하차 도보 5분</span></div>
+      </div>
+    </div>
+    <!-- 우: 정보(즉시 연결 채널 포함) -->
     <div class="bd-loc2-info">
       <h2 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:40px; letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 24px;">오시는 길</h2>
       <p style="font-family:'Pretendard',sans-serif; font-size:18px; line-height:1.6; color:#1A1A1A; margin:0 0 24px;">경기 안산시 단원구 고잔로 108 대동조이월드 405호</p>
@@ -626,10 +634,13 @@
 <!-- GALLERY:START --><!-- GALLERY:END -->
 
 <!-- 상담 신청 폼 -->
-<section id="cta-form" data-reveal style="padding:100px 24px; background:#F5F5F5; text-align:center;">
-  <div style="max-width:520px; margin:0 auto;">
+<section id="cta-form" data-reveal style="padding:130px 24px; background:#F5F5F5; text-align:center;">
+  <div style="max-width:1200px; margin:0 auto; padding:0 40px;">
+    <p style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(19px,2.4vw,24px); line-height:1.7; letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 12px;">전화가 부담되시면, 번호만 남겨 주세요.</p>
+    <p style="font-size:15px; color:#8A8A8A; margin:0 0 56px;">편하신 시간에 확인하고 연락드립니다.</p>
+    <div style="max-width:520px; margin:0 auto;">
     <h2 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(24px,3.4vw,32px); letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 12px;">상담 신청</h2>
-    <p style="font-size:15px; color:#8A8A8A; margin:0 0 32px;">연락처를 남겨 주시면 확인 후 편하게 연락드립니다.</p>
+    <p style="font-size:15px; color:#8A8A8A; margin:0 0 32px;">이름과 연락처만 남기셔도 됩니다.</p>
     <div style="background:#fff; border:1px solid var(--line); border-radius:12px; padding:30px 26px; text-align:left;">
       <form id="consultation-form" style="display:grid; gap:11px;">
         <input type="text" name="name" required placeholder="이름" style="height:48px; padding:0 15px; border:1px solid rgba(26,26,26,.18); border-radius:7px; font-size:15px;">
@@ -653,6 +664,7 @@
         </label>
         <button type="submit" style="height:52px; background:#6B4423; color:#fff; border:none; border-radius:7px; font-size:15px; font-weight:600; cursor:pointer; margin-top:4px;">상담 신청</button>
       </form>
+    </div>
     </div>
   </div>
 </section>
