@@ -84,6 +84,7 @@
     .bd-mm-toggle{ display:flex; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; padding:9px 8px; background:none; border:none; cursor:pointer; -webkit-tap-highlight-color:transparent; }
     .bd-mm-toggle span{ display:block; height:2px; width:100%; background:#1A1A1A; border-radius:2px; }
     .bd-hero-hide-m{ display:none!important; }
+    .bd-cards2{ grid-template-columns:1fr!important; }
   }
   body.bd-mm-lock{ overflow:hidden; }
   .bd-mm[hidden]{ display:none!important; }
@@ -248,7 +249,7 @@
   <div style="max-width:1100px; margin:0 auto;">
     <!-- ⚠ 아래 4개 카드는 예시입니다. 실제 치료 사례(전/후 사진 + 원장 소견)로 교체해 주세요. -->
     <!-- 작성 원칙: 환자의 1인칭 후기(예: "정말 만족했어요")가 아니라, 원장 시점의 객관적 진료 기록으로 작성합니다. -->
-    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:32px;">
+    <div class="bd-cards2" style="display:grid; grid-template-columns:repeat(2,1fr); gap:32px;">
       <!-- BEFORE_AFTER:START — 관리자 전후사진이 이 사이에 자동 삽입됩니다(patternB). 아래는 기본 예시. -->
       <div style="border:1px solid var(--line); border-radius:6px; overflow:hidden;">
         <div style="display:grid; grid-template-columns:1fr 1fr;">
