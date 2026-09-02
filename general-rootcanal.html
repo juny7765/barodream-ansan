@@ -395,5 +395,16 @@
     document.addEventListener('keydown', function(e){ if(e.key==='Escape' && mm.classList.contains('is-open')) closeMenu(); });
   })();
 </script>
+<script>
+  (function(){
+    var els = Array.prototype.slice.call(document.querySelectorAll("[data-reveal]"));
+    if("IntersectionObserver" in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("is-in"); io.unobserve(e.target); } });
+      }, { threshold:0.12 });
+      els.forEach(function(el){ io.observe(el); });
+    } else { els.forEach(function(el){ el.classList.add("is-in"); }); }
+  })();
+</script>
 </body>
 </html>
