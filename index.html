@@ -101,6 +101,9 @@
     .bd-header{ padding:0 20px!important; }
     .bd-nav{ display:none!important; }
     .bd-concern-grid{ grid-template-columns:1fr!important; }
+    .bd-preview-grid{ grid-template-columns:1fr!important; }
+    .bd-preview-card{ flex-direction:column!important; }
+    .bd-preview-card > .ph{ width:100%!important; height:150px!important; }
     .bd-systems-grid{ grid-template-columns:1fr!important; }
     .bd-systems-grid > div{ padding:0!important; }
     .bd-care-grid{ grid-template-columns:1fr!important; }
@@ -446,7 +449,7 @@
 
 <!-- 칼럼 / 치료 사례 미리보기 -->
 <section data-reveal style="padding:0 24px 130px; background:#fff;">
-  <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:32px;">
+  <div class="bd-preview-grid" style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:32px;">
 
     <div>
       <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:24px;">
@@ -454,13 +457,13 @@
         <a href="column.html" style="font-size:13px; color:var(--accent); text-decoration:none;">더 보기 →</a>
       </div>
       <a href="column.html" style="display:block; text-decoration:none; border:1px solid var(--line); border-radius:6px; overflow:hidden; margin-bottom:14px;">
-        <div style="display:flex;">
+        <div class="bd-preview-card" style="display:flex;">
           <div class="ph" style="width:120px; height:90px; flex-shrink:0;">예시</div>
           <div style="padding:16px 18px;"><p style="font-size:12px; color:var(--accent); margin:0 0 6px;">임플란트</p><p style="font-size:14px; line-height:1.5; color:#1A1A1A; margin:0;">[예시] 임플란트, 나이가 많아도 할 수 있을까요</p></div>
         </div>
       </a>
       <a href="column.html" style="display:block; text-decoration:none; border:1px solid var(--line); border-radius:6px; overflow:hidden;">
-        <div style="display:flex;">
+        <div class="bd-preview-card" style="display:flex;">
           <div class="ph" style="width:120px; height:90px; flex-shrink:0;">예시</div>
           <div style="padding:16px 18px;"><p style="font-size:12px; color:var(--accent); margin:0 0 6px;">의식하진정법</p><p style="font-size:14px; line-height:1.5; color:#1A1A1A; margin:0;">[예시] 의식하진정법과 수면치료, 무엇이 다를까요</p></div>
         </div>
@@ -473,13 +476,13 @@
         <a href="cases.html" style="font-size:13px; color:var(--accent); text-decoration:none;">더 보기 →</a>
       </div>
       <a href="cases.html" style="display:block; text-decoration:none; border:1px solid var(--line); border-radius:6px; overflow:hidden; margin-bottom:14px;">
-        <div style="display:flex;">
+        <div class="bd-preview-card" style="display:flex;">
           <div class="ph" style="width:120px; height:90px; flex-shrink:0;">예시</div>
           <div style="padding:16px 18px;"><p style="font-size:12px; color:var(--accent); margin:0 0 6px;">풀아치 임플란트</p><p style="font-size:14px; line-height:1.5; color:#1A1A1A; margin:0;">[예시] 전체 무치악, 임플란트 4개로 회복한 사례</p></div>
         </div>
       </a>
       <a href="cases.html" style="display:block; text-decoration:none; border:1px solid var(--line); border-radius:6px; overflow:hidden;">
-        <div style="display:flex;">
+        <div class="bd-preview-card" style="display:flex;">
           <div class="ph" style="width:120px; height:90px; flex-shrink:0;">예시</div>
           <div style="padding:16px 18px;"><p style="font-size:12px; color:var(--accent); margin:0 0 6px;">라미네이트</p><p style="font-size:14px; line-height:1.5; color:#1A1A1A; margin:0;">[예시] 앞니 변색, 최소삭제 라미네이트로 개선한 사례</p></div>
         </div>
