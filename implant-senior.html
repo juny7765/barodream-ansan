@@ -57,6 +57,7 @@
     .bd-nav{ display:none!important; }
     .bd-define-grid{ grid-template-columns:1fr!important; gap:32px!important; }
     .bd-route-grid{ grid-template-columns:1fr!important; }
+    .bd-need-grid{ grid-template-columns:1fr!important; }
     .bd-process-row{ grid-template-columns:60px 1fr!important; gap:16px!important; }
   }
 
@@ -121,6 +122,7 @@
     .bd-nav{ display:none!important; }
     .bd-mm-toggle{ display:flex; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; padding:9px 8px; background:none; border:none; cursor:pointer; -webkit-tap-highlight-color:transparent; }
     .bd-mm-toggle span{ display:block; height:2px; width:100%; background:#1A1A1A; border-radius:2px; }
+    .bd-hero-hide-m{ display:none!important; }
   }
   body.bd-mm-lock{ overflow:hidden; }
   .bd-mm[hidden]{ display:none!important; }
@@ -272,10 +274,10 @@
 <!-- HERO -->
 <section style="position:relative; height:clamp(440px, 56vh, 560px); display:flex; align-items:center; overflow:hidden; background:#111;">
   <!-- 사진 교체: 시니어 환자가 편안하게 웃는 모습 또는 상담 장면, filter:grayscale(1) contrast(1.02) brightness(.58) 유지 -->
-  <img src="images/denture2.png" alt="틀니를 손에 든 채 볼을 짚은 시니어 남성" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:right center; filter:contrast(1.02) brightness(.9);">
+  <img class="bd-hero-hide-m" src="images/denture2.png" alt="틀니를 손에 든 채 볼을 짚은 시니어 남성" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:right center; filter:contrast(1.02) brightness(.9);">
   <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(10,10,10,.82) 0%, rgba(10,10,10,.45) 55%, rgba(10,10,10,.1) 100%);"></div>
   <div data-reveal style="position:relative; max-width:1200px; margin:0 auto; padding:0 40px; width:100%;">
-    <p style="font-family:'Pretendard',sans-serif; font-size:13px; letter-spacing:0.22em; color:rgba(255,255,255,.6); margin:0 0 24px;">SENIOL IMPLANT · 시니올 임플란트</p>
+    <p style="font-family:'Pretendard',sans-serif; font-size:13px; letter-spacing:0.22em; color:rgba(255,255,255,.6); margin:0 0 24px;">SENIOR IMPLANT · 시니올 임플란트</p>
     <h1 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(34px,5vw,64px); line-height:1.28; letter-spacing:-0.02em; color:#fff; margin:0;">다시, 마음껏<br>씹는 즐거움을</h1>
     <p style="font-family:'Pretendard',sans-serif; font-size:clamp(17px,2vw,20px); line-height:1.6; color:rgba(255,255,255,.82); margin:28px 0 0; font-weight:300;">이가 없는 시니어를 위한 시니올 임플란트로, 전신 건강 상태를 먼저 확인하고 안전한 범위 안에서 진행합니다.</p>
     <a href="#cta" style="display:inline-flex; align-items:center; margin-top:40px; padding:16px 34px; background:#fff; color:#1A1A1A; font-size:15px; font-weight:500; text-decoration:none; border-radius:2px;">상담 예약</a>
