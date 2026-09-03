@@ -87,9 +87,12 @@ function docProfile(d, fallbackImg) {
     ? ` <span style="font-size:.6em; font-weight:400; color:#8A8A8A;">${esc(d.role)}</span>`
     : "";
   const img = d.profile_image_url || fallbackImg || "";
+  const imgTag = img
+    ? `<img src="${esc(img)}" alt="${esc(d.name)} 원장" style="width:100%; height:400px; object-fit:cover; border-radius:6px;">`
+    : `<div class="ph" style="width:100%; height:400px; border-radius:6px;">${esc(d.name)} 원장 사진</div>`;
   return `  <div class="bd-dr-profile">
     <div>
-      <img src="${esc(img)}" alt="${esc(d.name)} 대표원장" style="width:100%; height:400px; object-fit:cover; border-radius:6px;">
+      ${imgTag}
     </div>
     <div>
       <h2 style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:clamp(26px,3.4vw,32px); letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 6px;">${esc(d.name)}${roleSpan}</h2>
@@ -295,26 +298,25 @@ async function injectDoctors() {
     console.log("원장 데이터 없음 — doctors.html 유지");
     return;
   }
-  const byName = {};
-  data.forEach((d) => { byName[d.name] = d; });
+  // 표시순서 정렬(순서 같으면 먼저 등록된 순)
+  data.sort((a, b) => (a.display_order - b.display_order) || (new Date(a.created_at) - new Date(b.created_at)));
   let html = fs.readFileSync("doctors.html", "utf-8");
-  let changed = false;
-  const map = { kim: "김진희", han: "한지상" }; // section id → 이름
-  const fallbackImg = { kim: "images/dr.kim.jpg", han: "images/dr.han.jpg" };
-  for (const [id, name] of Object.entries(map)) {
-    const d = byName[name];
-    if (!d) continue;
-    const re = new RegExp(`(<section id="${id}"[^>]*>)([\\s\\S]*?)(</section>)`);
-    if (!re.test(html)) continue;
-    html = html.replace(re, `$1\n${docProfile(d, fallbackImg[id])}\n$3`);
-    changed = true;
+  const START = "<!-- DOCTORS:START -->", END = "<!-- DOCTORS:END -->";
+  if (!html.includes(START) || !html.includes(END)) {
+    console.log("doctors.html DOCTORS 마커 없음 — 스킵");
+    return;
   }
-  if (changed) {
-    fs.writeFileSync("doctors.html", html);
-    console.log("doctors.html 원장 프로필 반영 완료");
-  } else {
-    console.log("doctors.html 섹션(kim/han) 매칭 없음 — 스킵");
-  }
+  const fallbackByName = { "김진희": "images/dr.kim.jpg", "한지상": "images/dr.han.jpg" };
+  const divider = `\n<div style="max-width:1000px; margin:0 auto; padding:0 24px;"><div style="height:1px; background:var(--line);"></div></div>\n`;
+  const blocks = data.map((d, i) => {
+    const pad = i === 0 ? "100px 24px 70px" : "70px 24px";
+    const sec = `<section data-reveal style="padding:${pad}; background:#fff;">\n${docProfile(d, fallbackByName[d.name])}\n</section>`;
+    return sec + (i < data.length - 1 ? divider : "");
+  }).join("\n");
+  const re = new RegExp(`${START}[\\s\\S]*?${END}`);
+  html = html.replace(re, `${START}\n${blocks}\n${END}`);
+  fs.writeFileSync("doctors.html", html);
+  console.log(`doctors.html 원장 ${data.length}명 반영 완료`);
 }
 
 async function injectBeforeAfter() {
