@@ -92,6 +92,9 @@
   .bd-photo-bw{ transition:transform .5s ease, box-shadow .5s ease, filter .5s ease; will-change:transform; }
   .bd-photo-bw:hover{ transform:scale(1.03); box-shadow:0 16px 40px rgba(26,26,26,.18); filter:brightness(1.04); }
 
+  /* 상담가이드 2열 그리드: 홀수 개수일 때 마지막 항목 전체폭(5번째가 홀로 남지 않게) */
+  #bdQuizStep2List > *:last-child:nth-child(odd){ grid-column:1 / -1; }
+
   /* ── 반응형 ─────────────────────────────────────────── */
   @media (max-width:1024px){
     .bd-systems-grid{ grid-template-columns:repeat(2,1fr)!important; row-gap:48px!important; }
@@ -344,7 +347,8 @@
         title: "의식하진정법, 어떤 게 궁금하세요?",
         items: [
           { label: "의식하진정법 임플란트가 궁금해요", href: "implant-sedation.html" },
-          { label: "충치·신경치료가 궁금해요", href: "caries.html" },
+          { label: "충치치료가 궁금해요", href: "caries.html" },
+          { label: "신경치료가 궁금해요", href: "endo.html" },
           { label: "잇몸치료가 궁금해요", href: "perio.html" },
           { label: "디지털 보철치료가 궁금해요", href: "prosthesis.html" }
         ]
