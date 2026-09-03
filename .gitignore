@@ -2,7 +2,14 @@
 # (내부 카피 규칙, 노출 금지 리뷰수/평점 수치 등이 들어있음)
 design/
 
+# 엑셀 등 내부 문서(다른 고객사 자료 포함 가능) — 공개 배포 금지
+*.xlsx
+*.xls
+
 # OS / 에디터 부산물
 Thumbs.db
 desktop.ini
 .DS_Store
+
+node_modules/
+package-lock.json
