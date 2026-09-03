@@ -79,6 +79,28 @@ async function injectMainReviews() {
   console.log(`index.html 대표리뷰 ${data.length}건 반영 완료`);
 }
 
+// 메인(index) Medical Team 카드 1개 생성 (컬러 사진 + 호버, 한 줄 소개/한마디 반영)
+function docMainCard(d, fallbackImg) {
+  const img = d.profile_image_url || fallbackImg || "";
+  const imgTag = img
+    ? `<img src="${esc(img)}" alt="${esc(d.name)} ${esc(d.role || "원장")}" class="bd-photo-bw" style="width:100%; height:440px; border-radius:4px; object-fit:cover;">`
+    : `<div class="ph" style="width:100%; height:440px; border-radius:4px;">${esc(d.name)} 원장 사진</div>`;
+  const roleSpan = d.role ? ` <span style="font-size:15px; color:#8A8A8A; font-weight:400;">${esc(d.role)}</span>` : "";
+  const quote = d.personal_message
+    ? `\n        <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:19px; color:#1A1A1A; margin:30px 0 0;">&ldquo;${esc(d.personal_message)}&rdquo;</p>`
+    : "";
+  const desc = d.short_intro && d.short_intro.trim()
+    ? esc(d.short_intro)
+    : esc([d.title, (d.specialties || []).join(", ")].filter(Boolean).join(" · "));
+  const h3margin = quote ? "20px 0 6px" : "30px 0 6px";
+  return `      <div>
+        ${imgTag}${quote}
+        <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:24px; letter-spacing:-0.02em; color:#1A1A1A; margin:${h3margin};">${esc(d.name)}${roleSpan}</h3>
+        <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">${desc}</p>
+        <a href="doctors.html" style="display:inline-block; margin-top:22px; font-size:14px; color:#1A1A1A; text-decoration:none; border-bottom:1px solid #1A1A1A; padding-bottom:2px;">자세히 보기</a>
+      </div>`;
+}
+
 function docProfile(d, fallbackImg) {
   const specs = (d.specialties || []).join(" · ");
   const creds = [...(d.education || []), ...(d.certifications || []), ...(d.career || [])];
@@ -97,7 +119,7 @@ function docProfile(d, fallbackImg) {
     <div>
       <h2 style="font-family:'Noto Serif KR',serif; font-weight:600; font-size:clamp(26px,3.4vw,32px); letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 6px;">${esc(d.name)}${roleSpan}</h2>
       <p style="font-size:15px; color:#8A8A8A; margin:0 0 28px;">${esc(d.title)}</p>
-      <p style="font-size:13px; letter-spacing:0.14em; color:#8A8A8A; margin:0 0 8px;">담당 진료</p>
+${d.personal_message ? `      <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:17px; color:var(--accent); margin:0 0 12px;">&ldquo;${esc(d.personal_message)}&rdquo;</p>\n` : ""}${d.short_intro ? `      <p style="font-size:15px; line-height:1.75; color:#4A4A4A; margin:0 0 26px;">${esc(d.short_intro)}</p>\n` : ""}      <p style="font-size:13px; letter-spacing:0.14em; color:#8A8A8A; margin:0 0 8px;">담당 진료</p>
       <p style="font-family:'Noto Serif KR',serif; font-size:20px; line-height:1.5; letter-spacing:-0.02em; color:#1A1A1A; margin:0 0 22px;">${esc(specs)}</p>
       <p style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:15px; letter-spacing:0.02em; color:var(--accent); margin:0 0 14px;">주요경력 및 학력</p>
       <ul class="bd-cred">
@@ -317,6 +339,22 @@ async function injectDoctors() {
   html = html.replace(re, `${START}\n${blocks}\n${END}`);
   fs.writeFileSync("doctors.html", html);
   console.log(`doctors.html 원장 ${data.length}명 반영 완료`);
+
+  // index.html Medical Team 카드도 같은 DB 데이터로 반영
+  if (fs.existsSync("index.html")) {
+    let idx = fs.readFileSync("index.html", "utf-8");
+    const MS = "<!-- DOCTORS-MAIN:START -->", ME = "<!-- DOCTORS-MAIN:END -->";
+    if (idx.includes(MS) && idx.includes(ME)) {
+      const cards = data.map((d) => docMainCard(d, fallbackByName[d.name])).join("\n");
+      const newIdx = idx.replace(new RegExp(`${MS}[\\s\\S]*?${ME}`), `${MS}\n${cards}\n      ${ME}`);
+      if (newIdx !== idx) {
+        fs.writeFileSync("index.html", newIdx);
+        console.log(`index.html 의료진 ${data.length}명 반영 완료`);
+      }
+    } else {
+      console.log("index.html DOCTORS-MAIN 마커 없음 — 메인 의료진 스킵");
+    }
+  }
 }
 
 async function injectBeforeAfter() {
