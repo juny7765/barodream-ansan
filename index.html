@@ -88,9 +88,9 @@
   [data-reveal]{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
   [data-reveal].is-in{ opacity:1; transform:none; }
 
-  /* 흑백 → 마우스 오버 시 컬러 (원장 사진) */
-  .bd-photo-bw{ filter:grayscale(1) contrast(1.02); transition:filter .55s ease; }
-  .bd-photo-bw:hover{ filter:grayscale(0) contrast(1); }
+  /* 원장 사진: 컬러 + 마우스 오버 시 살짝 확대·그림자 */
+  .bd-photo-bw{ transition:transform .5s ease, box-shadow .5s ease, filter .5s ease; will-change:transform; }
+  .bd-photo-bw:hover{ transform:scale(1.03); box-shadow:0 16px 40px rgba(26,26,26,.18); filter:brightness(1.04); }
 
   /* ── 반응형 ─────────────────────────────────────────── */
   @media (max-width:1024px){
@@ -626,22 +626,27 @@
   <div style="max-width:1200px; margin:0 auto; padding:0 40px;">
     <div style="text-align:center; margin-bottom:70px;">
       <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:15px; color:var(--accent); margin:0 0 16px;">Medical Team</p>
-      <h2 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:clamp(26px,4vw,40px); letter-spacing:-0.02em; color:#1A1A1A; margin:0;">두 명의 원장이, 함께 봅니다</h2>
     </div>
-    <div class="bd-doctors-grid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:48px;">
+    <div class="bd-doctors-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:32px;">
       <div>
         <img src="images/dr.kim.jpg" alt="김진희 대표원장" class="bd-photo-bw" style="width:100%; height:440px; border-radius:4px; object-fit:cover;">
         <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:19px; color:#1A1A1A; margin:30px 0 0;">“보이지 않는 정확함을 만듭니다.”</p>
         <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:24px; letter-spacing:-0.02em; color:#1A1A1A; margin:20px 0 6px;">김진희 <span style="font-size:15px; color:#8A8A8A; font-weight:400;">공동 대표원장</span></h3>
         <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">통합치의학과 전문의 · 보철, 심미 담당 · 서울대 졸업, 경희대 치의학전문대학원 석사</p>
-        <a href="doctors.html#kim" style="display:inline-block; margin-top:22px; font-size:14px; color:#1A1A1A; text-decoration:none; border-bottom:1px solid #1A1A1A; padding-bottom:2px;">자세히 보기</a>
+        <a href="doctors.html" style="display:inline-block; margin-top:22px; font-size:14px; color:#1A1A1A; text-decoration:none; border-bottom:1px solid #1A1A1A; padding-bottom:2px;">자세히 보기</a>
       </div>
       <div>
         <img src="images/dr.han.jpg" alt="한지상 대표원장" class="bd-photo-bw" style="width:100%; height:440px; border-radius:4px; object-fit:cover;">
         <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:19px; color:#1A1A1A; margin:30px 0 0;">“30년을 환자로 살았습니다.”</p>
         <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:24px; letter-spacing:-0.02em; color:#1A1A1A; margin:20px 0 6px;">한지상 <span style="font-size:15px; color:#8A8A8A; font-weight:400;">공동 대표원장</span></h3>
         <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">통합치의학과 전문의 · 의식하진정법 임플란트, All-on-X 담당 · 평창 동계올림픽·패럴림픽 팀 닥터</p>
-        <a href="doctors.html#han" style="display:inline-block; margin-top:22px; font-size:14px; color:#1A1A1A; text-decoration:none; border-bottom:1px solid #1A1A1A; padding-bottom:2px;">자세히 보기</a>
+        <a href="doctors.html" style="display:inline-block; margin-top:22px; font-size:14px; color:#1A1A1A; text-decoration:none; border-bottom:1px solid #1A1A1A; padding-bottom:2px;">자세히 보기</a>
+      </div>
+      <div>
+        <img src="https://res.cloudinary.com/rjoebmnd/image/upload/v1788411004/barodream-ansan/doctors/ikcekly9zkvatrqittnk.jpg" alt="석지원 교정원장" class="bd-photo-bw" style="width:100%; height:440px; border-radius:4px; object-fit:cover;">
+        <h3 style="font-family:'Noto Serif KR',serif; font-weight:500; font-size:24px; letter-spacing:-0.02em; color:#1A1A1A; margin:30px 0 6px;">석지원 <span style="font-size:15px; color:#8A8A8A; font-weight:400;">교정원장</span></h3>
+        <p style="font-size:15px; line-height:1.66; color:#4A4A4A; margin:0;">통합치의학과 전문의 · 치아교정 담당 · 연세대 치과교정과 석사, 중앙대학교병원 교정과 레지던트 수료</p>
+        <a href="doctors.html" style="display:inline-block; margin-top:22px; font-size:14px; color:#1A1A1A; text-decoration:none; border-bottom:1px solid #1A1A1A; padding-bottom:2px;">자세히 보기</a>
       </div>
     </div>
   </div>
